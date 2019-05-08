@@ -4,7 +4,7 @@
   &__products{
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-auto-rows: minmax(34rem, auto);
+    grid-auto-rows: minmax(33rem, auto);
     grid-gap: 2rem;
   }
   &__product{
@@ -32,10 +32,10 @@
       position: absolute;
       top: 0;
       transition: background-color 1s;
-      background: rgba($white-color, .95);
+      background: rgba($lightest-grey-color, .97);
       left: 0;
       .product__title{
-        margin: 4rem 0 1rem 0;
+        margin: 2rem 0 1rem 0;
       }
       .product__discountedprice{
         margin-bottom: 2.5rem;
@@ -43,32 +43,56 @@
       .product__colors{
         margin-bottom: 1rem;
         cursor: pointer;
-        display: flex;
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        grid-gap: 1rem;
+        justify-content: center;
+        align-items: center;
         div:not(:last-child){
-          margin-right: 1.4rem;
+          //margin-right: 1.4rem;
         }
-        .cyan,
-        .orange,
-        .yellow {
+        div{
           transition: border .1s;
           border-radius: 50%;
           width: 2.4rem;
           height: 2.4rem;
         }
-        .cyan:hover,
-        .orange:hover,
-        .yellow:hover,
+        div:hover:not(.red):not(.white),
         .color__active {
           border: 3px solid $primary-color;
         }
-        .cyan {
-          background: $cyan-color;
+        .red:hover,
+        .white:hover,
+        .white.color__active,
+        .red.color__active{
+          border: 3px solid $black-color;
+        }
+        .white {
+          background: $white-color;
         }
         .orange {
           background: $orange-color;
         }
+        .red{
+          background: red;
+        }
+        .black{
+          background: $black-color;
+        }
         .yellow {
-          background: $yellow-color;
+          background: yellow;
+        }
+        .green{
+          background: green;
+        }
+        .blue{
+          background: blue;
+        }
+        .indigo{
+          background: indigo;
+        }
+        .purple{
+          background: green;
         }
       } 
       .product__decisions{
@@ -108,7 +132,8 @@
         color: $white-color;
         transition: background-color .4s;
       }
-      li:hover{
+      li:hover,
+      .selected__page{
         background: $primary-color;
       }
       li{ margin-right: 1rem; }

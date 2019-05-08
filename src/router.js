@@ -12,12 +12,18 @@ export default new Router({
     {
       path: '/',
       name: 'home',
-      component: Home
+      component: Home,
+      meta: {
+        title: 'Shopmate - Home'
+      }
     },
     {
       path: '/about',
       name: 'about',
-      component: About
+      component: About,
+      meta: {
+        title: 'Shopmate - Home'
+      }
     }
   ]
 })

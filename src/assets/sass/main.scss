@@ -2,9 +2,9 @@
 @import './common/typography';
 @import './common/base';
 @import './common/header';
-@import 'pageallproducts';
-@import 'pageproductdetail';
-@import 'pagecheckout';
-@import 'pageauthentication';
-@import 'pageprofile';
+@import './pages/pageallproducts';
+@import './pages/pageproductdetail';
+@import './pages/pagecheckout';
+@import './pages/pageauthentication';
+@import './pages/pageprofile';
 @import './shoppingcart/cartdetails';

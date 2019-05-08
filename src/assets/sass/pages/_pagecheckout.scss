@@ -1,8 +1,8 @@
-@import './compoprogress';
-@import './checkout/delivery';
-@import './checkout/confirmation';
-@import './checkout/payment';
-@import './checkout/finish';
+@import '../compoprogress';
+@import '../checkout/delivery';
+@import '../checkout/confirmation';
+@import '../checkout/payment';
+@import '../checkout/finish';
 
 .checkout-container{
   background: $white-color;

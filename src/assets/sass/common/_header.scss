@@ -57,10 +57,19 @@
     li:not(:last-child){
       margin-right: 2rem;
     }
+    li{
+      transition: color .4s;
+    }
+    li:hover{
+      color: $primary-color;
+    }
   }
   &-search{
+    position: relative;
     input{
       padding: 8px 0;
+      width: 22rem;
+      margin-right: 3rem;
     }
     background: rgba($white-color, .5);
     border-radius: 1.8rem;
@@ -71,7 +80,9 @@
       margin-right: 1rem;
     }
     .close{
-      margin-left: 7.3rem;
+      position: absolute;
+      right: 0;
+      margin-right: 1.7rem;
     }
   }
   &-cart--notifications span{

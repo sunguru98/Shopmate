@@ -1,7 +1,7 @@
 <template>
   <header class="nav-bars">
-    <GeneralNavBar/>
-    <CategoriesNavBar/>
+    <GeneralNavBar @cartClicked="activateCart"/>
+    <CategoriesNavBar @cartClicked="activateCart" :departments="departments"/>
   </header>
 </template>
 
@@ -9,9 +9,14 @@
 import CategoriesNavBar from '@/components/CategoriesNavBar.vue'
 import GeneralNavBar from '@/components/GeneralNavBar.vue'
 export default {
-  components:{
+  props: ['departments'],
+  components: {
     CategoriesNavBar, GeneralNavBar
+  },
+  methods: {
+    activateCart () {
+      this.$emit('displayCart')
+    }
   }
 }
 </script>
-

@@ -13,7 +13,7 @@
       </div>
       <div class="general__navbar-cart">
         <div class="general__navbar-cart--notifications">
-          <a href="" style="display: flex"><img src="@/assets/img/cart.svg" alt="Cart image" class="cart__image"></a>
+          <a href="" style="display: flex" @click.prevent="showCart"><img src="@/assets/img/cart.svg" alt="Cart image" class="cart__image"></a>
           <span class="cart__badge">6</span>
         </div>
         <h3 class="general__navbar-cart--amount">Your bag: $45.32</h3>
@@ -24,7 +24,10 @@
 
 <script>
 export default {
-
+  methods: {
+    showCart () {
+      this.$emit('cartClicked')
+    }
+  }
 }
 </script>
-
