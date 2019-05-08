@@ -1,0 +1,82 @@
+.general__navbar,
+.categories__navbar {
+  &-cart {
+    display: flex;
+    align-items: center;
+
+    &--notifications {
+      display: flex;
+      margin-right: 2.5rem;
+      position: relative;
+
+      span {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        top: -1rem;
+        right: -1.5rem;
+        background: $primary-color;
+        border-radius: 50%;
+        width: 2.4rem;
+        height: 2.4rem;
+        color: $white-color;
+      }
+    }
+  }
+}
+
+.general__navbar{
+  background: $white-color;
+  width: 100vw;
+  height: 5rem;
+  & .container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  &-sales ul{
+    display: flex;
+    li:not(:last-child){
+      margin-right: 2.5rem;
+    }
+  }
+}
+
+.categories__navbar{
+  background: $black-color;
+  width: 100vw;
+  height: 7.2rem;
+  & .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  &-categories{
+    display: flex;
+    li:not(:last-child){
+      margin-right: 2rem;
+    }
+  }
+  &-search{
+    input{
+      padding: 8px 0;
+    }
+    background: rgba($white-color, .5);
+    border-radius: 1.8rem;
+    padding: 0 1.3rem;
+    display: flex;
+    align-items: center;
+    .search{
+      margin-right: 1rem;
+    }
+    .close{
+      margin-left: 7.3rem;
+    }
+  }
+  &-cart--notifications span{
+    background: $white-color;
+    color: $primary-color;
+  }
+}
+

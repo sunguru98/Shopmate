@@ -1,0 +1,21 @@
+.success-container{
+  padding-bottom: 5rem; 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  &__successtitle{
+    margin: 4rem 0 2.5rem 0;
+  }
+  &__successmessage{
+    margin-bottom: 4.3rem;
+  }
+  &__gohomebutton{
+    padding: 1rem 0;
+    width: 22rem;
+    margin: 0 auto;
+    border-radius: 100px;
+    color: $white-color !important;
+    background: $primary-color;
+  }
+}

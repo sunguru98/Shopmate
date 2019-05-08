@@ -1,0 +1,59 @@
+.authentication-container{
+  height: 80vh;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .signin-container,
+  .signup-container{
+    min-height: 55rem;
+    background: $white-color;
+    flex: 1;
+    box-shadow: 0 2rem 4rem rgba(#000, .3);
+    padding: 4rem 4.3rem;
+    text-align: center;
+    &--title{
+      margin-bottom: 4rem;
+    }
+    &--form{
+      input[type='email'],
+      input[type='password']{
+        transition: border .4s;
+        border-radius: .6rem;
+        display: block;
+        padding: 2rem 0;
+        text-align: center;
+        width: 100%;
+        margin: 0 auto;
+        border: 1px solid $border-color;
+        font-size: 1.6rem;
+        align-self: flex-end;
+      }
+      input[type='email'],
+      input[type='password'] {
+        margin-bottom: 1.2rem;
+      }
+      input[type='email']:focus,
+      input[type='password']:focus{
+        border-color: $primary-color;
+        outline: none;
+      }
+      input[type='submit'], a{
+        display: block;
+        width: 22.1rem;
+        margin: 2.4rem auto;
+        padding: 2rem 0;
+      }
+      a{
+        background: $facebook-color;
+        color: $white-color;
+        border-radius: 100px;
+        padding-left: 4rem;
+        padding-right: 4rem;
+        box-sizing: content-box;
+      }
+    }
+  }
+  .signin-container{
+    margin-right: 2rem;
+  }
+}

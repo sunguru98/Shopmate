@@ -1,0 +1,120 @@
+.products-area{
+  flex: 1;
+  margin-left: 2rem;
+  &__products{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: minmax(34rem, auto);
+    grid-gap: 2rem;
+  }
+  &__product{
+    position: relative;
+    background: $white-color;
+    padding: 2rem;
+    text-align: center;
+    box-shadow: 0 1px 1px rgba(#000, 0.2);
+    transition: box-shadow 0.4s;
+    &-image{
+      width: 16.5rem;
+      height: 16.5rem;
+    }
+    &-name {
+      margin-bottom: 1rem;
+    }
+    &-originalprice{
+      color: $light-grey-color;
+      text-decoration: line-through;
+    }
+    .hovered-view{
+      width: 100%;
+      height: 100%;
+      display: none;
+      position: absolute;
+      top: 0;
+      transition: background-color 1s;
+      background: rgba($white-color, .95);
+      left: 0;
+      .product__title{
+        margin: 4rem 0 1rem 0;
+      }
+      .product__discountedprice{
+        margin-bottom: 2.5rem;
+      }
+      .product__colors{
+        margin-bottom: 1rem;
+        cursor: pointer;
+        display: flex;
+        div:not(:last-child){
+          margin-right: 1.4rem;
+        }
+        .cyan,
+        .orange,
+        .yellow {
+          transition: border .1s;
+          border-radius: 50%;
+          width: 2.4rem;
+          height: 2.4rem;
+        }
+        .cyan:hover,
+        .orange:hover,
+        .yellow:hover,
+        .color__active {
+          border: 3px solid $primary-color;
+        }
+        .cyan {
+          background: $cyan-color;
+        }
+        .orange {
+          background: $orange-color;
+        }
+        .yellow {
+          background: $yellow-color;
+        }
+      } 
+      .product__decisions{
+        display: flex;
+        flex-direction: column;
+        align-items: center;      
+      }
+    }
+  }
+  &__product:hover{
+    box-shadow: 0 0 50px 1px rgba(#000, 0.2);
+    .hovered-view{
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+  &__carousel{
+    margin: 2rem 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    ul{
+      display: flex;
+      li{
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 3.5rem;
+        height: 3.5rem;
+        border-radius: 50%;
+        font-weight: 700;
+        background-color: $lighter-grey-color;
+        color: $white-color;
+        transition: background-color .4s;
+      }
+      li:hover{
+        background: $primary-color;
+      }
+      li{ margin-right: 1rem; }
+      li:first-child{
+        margin-left: 1rem;
+      }
+    }
+  }
+}

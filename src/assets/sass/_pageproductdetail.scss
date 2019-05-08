@@ -1,0 +1,10 @@
+@import './productDetail/productimages';
+@import './productDetail/productspecs';
+@import './productDetail/productreviews';
+@import './productDetail/userreviews';
+
+.product-container{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}

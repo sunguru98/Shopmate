@@ -1,0 +1,25 @@
+.product__image-container{
+  flex-basis: 45%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  &--currentimg{
+    width: 35rem;
+    height: 39rem;
+  }
+  &--smallimgs {
+    margin-top: 4.5rem;
+    & img{
+      border: 1px solid transparent;
+      width: 7.2rem;
+      height: 7.2rem;
+    }
+    & img:not(:last-child){
+      margin-right: 5px;
+    }
+    & img:hover, .selected-image{
+      cursor: pointer;
+      border-color: $primary-color;
+    }
+  }
+}

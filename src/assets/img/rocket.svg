@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="282px" height="172px" viewBox="0 0 282 172" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.5 (67469) - http://www.bohemiancoding.com/sketch -->
+    <title>rocket</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Forms-&amp;-Popovers" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="web-grid" transform="translate(-351.000000, -3882.000000)">
+            <g id="checkout-step-4" transform="translate(30.000000, 3623.000000)">
+                <g id="icons/rocket" transform="translate(321.000000, 219.000000)">
+                    <g id="bg" transform="translate(0.000000, 44.000000)">
+                        <circle id="Oval" fill="#F7F7F7" cx="150" cy="80" r="80"></circle>
+                        <polygon id="Triangle-" fill="#E9EEEF" points="260.5 27 265 36 256 36"></polygon>
+                        <polygon id="Triangle-" fill="#E9EEEF" transform="translate(265.000000, 142.500000) rotate(-45.000000) translate(-265.000000, -142.500000) " points="265 138 272 147 258 147"></polygon>
+                        <polygon id="Triangle-" fill="#E9EEEF" transform="translate(17.666279, 86.333721) rotate(-45.000000) translate(-17.666279, -86.333721) " points="17.6662789 78.4016131 30.0051136 94.2658292 5.3274441 94.2658292"></polygon>
+                        <circle id="Oval" fill="#E9EEEF" transform="translate(63.000000, 7.000000) scale(-1, 1) translate(-63.000000, -7.000000) " cx="63" cy="7" r="7"></circle>
+                        <circle id="Oval" fill="#E9EEEF" transform="translate(49.000000, 53.000000) scale(-1, 1) translate(-49.000000, -53.000000) " cx="49" cy="53" r="5"></circle>
+                        <circle id="Oval" fill="#E9EEEF" transform="translate(32.000000, 125.000000) scale(-1, 1) translate(-32.000000, -125.000000) " cx="32" cy="125" r="9"></circle>
+                        <circle id="Oval" fill="#E9EEEF" transform="translate(246.000000, 63.000000) scale(-1, 1) translate(-246.000000, -63.000000) " cx="246" cy="63" r="5"></circle>
+                        <circle id="Oval" fill="#E9EEEF" transform="translate(236.000000, 131.000000) scale(-1, 1) translate(-236.000000, -131.000000) " cx="236" cy="131" r="3"></circle>
+                        <circle id="Oval" fill="#E9EEEF" transform="translate(251.000000, 102.000000) scale(-1, 1) translate(-251.000000, -102.000000) " cx="251" cy="102" r="9"></circle>
+                        <circle id="Oval" fill="#E9EEEF" transform="translate(9.000000, 48.000000) scale(-1, 1) translate(-9.000000, -48.000000) " cx="9" cy="48" r="9"></circle>
+                        <rect id="Rectangle" fill="#E9EEEF" x="272" y="58" width="10" height="10"></rect>
+                        <rect id="Rectangle" fill="#E9EEEF" x="207" y="150" width="18" height="18"></rect>
+                        <rect id="Rectangle" fill="#E9EEEF" x="49" y="101" width="14" height="14"></rect>
+                        <rect id="Rectangle" fill="#E9EEEF" x="25" y="20" width="7" height="7"></rect>
+                    </g>
+                    <g id="rocket" transform="translate(146.622366, 125.865007) rotate(-315.000000) translate(-146.622366, -125.865007) translate(74.622366, 19.865007)">
+                        <path d="M81,211.641076 C87.627417,211.641076 93,211.316579 93,200.174506 C93,189.032434 81,180 81,180 C81,180 69,189.032434 69,200.174506 C69,211.316579 74.372583,211.641076 81,211.641076 Z" id="Oval" fill="#E9EEEF" transform="translate(81.000000, 195.820538) scale(1, -1) translate(-81.000000, -195.820538) "></path>
+                        <path d="M71.5622727,140.200847 C71.5622727,140.200847 55.5425123,69 35.7811363,69 C16.0197604,69 5.68434189e-14,140.200847 5.68434189e-14,140.200847 L71.5622727,140.200847 Z" id="Oval" stroke="#252529" stroke-width="4" fill="#FFFFFF" stroke-linecap="round"></path>
+                        <path d="M143.562273,140.200847 C143.562273,140.200847 127.542512,69 107.781136,69 C88.0197604,69 72,140.200847 72,140.200847 L143.562273,140.200847 Z" id="Oval" stroke="#252529" stroke-width="4" fill="#FFFFFF" transform="translate(107.781136, 113.338900) scale(-1, 1) translate(-107.781136, -113.338900) "></path>
+                        <path d="M72,154.484375 C147.716656,157.280045 121.5,152.900048 121.5,98.5 C121.5,44.0999521 99.3380951,-2.77111667e-12 72,-2.77111667e-12 C44.6619049,-2.77111667e-12 22.5,44.0999521 22.5,98.5 C22.5,152.900048 -3.71665573,151.688705 72,154.484375 Z" id="Oval" stroke="#252529" stroke-width="4" fill="#6EB2FB"></path>
+                        <path d="M72,205.986282 C79.9057316,205.986282 86.3145933,205.599195 86.3145933,192.308009 C86.3145933,179.016823 72,168.242187 72,168.242187 C72,168.242187 57.6854067,179.016823 57.6854067,192.308009 C57.6854067,205.599195 64.0942684,205.986282 72,205.986282 Z" id="Oval" stroke="#252529" stroke-width="4" fill="#FFFFFF" transform="translate(72.000000, 187.114235) scale(1, -1) translate(-72.000000, -187.114235) "></path>
+                        <circle id="Oval" stroke="#252529" stroke-width="4" fill="#FFFFFF" cx="72" cy="60" r="20"></circle>
+                        <path d="M72,116 C77.5228475,116 82,111.522847 82,106 C82,100.477153 77.5228475,96 72,96 C66.4771525,96 62,100.477153 62,106 C62,111.522847 66.4771525,116 72,116 Z" id="Oval" stroke="#252529" stroke-width="4" fill="#FFFFFF"></path>
+                        <path d="M76.7308838,5.65685425 C54.6394938,5.65685425 36.7308838,27.6159104 36.7308838,54.703779 C36.7308838,67.9809096 49.6505267,23.5841327 76.7308838,5.65685425 Z" id="Oval" fill="#FFFFFF"></path>
+                        <path d="M72,44.3431458 C63.7157288,44.3431458 57,52.8730537 57,63.3952284 C57,68.5526769 61.8448661,51.3069257 72,44.3431458 Z" id="Oval" fill="#E9EEEF"></path>
+                        <path d="M73,99 C68.581722,99 65,102.155885 65,106.048867 C65,107.957014 67.5839286,101.576451 73,99 Z" id="Oval" fill="#E9EEEF"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

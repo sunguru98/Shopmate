@@ -1,0 +1,25 @@
+@import './compoprogress';
+@import './checkout/delivery';
+@import './checkout/confirmation';
+@import './checkout/payment';
+@import './checkout/finish';
+
+.checkout-container{
+  background: $white-color;
+  .delivery-info-container {
+    padding: 4rem 8rem;
+  }
+  .delivery-buttons-container{ 
+    display: flex;
+    justify-content: flex-end;
+    color: $white-color;
+    .product__cart-btn{
+      font-size: 1.6rem;
+      margin: 0;
+      border-radius: 2.4rem;
+    }
+    .second{
+      margin-left: 2.5rem;
+    }
+  }
+}

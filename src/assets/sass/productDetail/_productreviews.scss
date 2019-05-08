@@ -1,0 +1,68 @@
+.reviews-container{
+  background: #fafafa;
+  padding: 4rem 8rem;
+  .product__reviews{
+    & .product__reviews-list {
+      margin-top: 4.5rem;
+
+      .product__review {
+        display: flex;
+        margin: 2rem 0;
+
+        .review__left {
+          flex-basis: 30%;
+        }
+
+        .review__right {
+          flex: 1;
+        }
+      }
+    }
+  }
+  .add_reviews{
+    h2{
+      margin: 5rem 0 3rem 0;
+    }
+    .review__form{
+      &--username, &--review-text, &--rating{
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        margin-bottom: 2.5rem;
+      }
+      label {
+        color: $black-color;
+        flex-basis: 20%;
+      }
+      input[type='text'],
+      textarea {
+        background: $white-color;
+        color: $black-color;
+        border: 1px solid $border-color;
+        border-radius: 6px;
+        padding: 2rem;
+      }
+      span {
+        color: $lighter-grey-color;
+      }
+      select{
+        border: 1px solid $border-color;
+        background: $white-color;
+        color: $black-color;
+      }
+      &--review-text{
+        align-items: flex-start;
+        .review-text__textarea {
+          display: flex;
+          flex-direction: column;
+        }
+      }
+      &--rating{
+        margin-bottom: .5rem;
+      }
+      input[type='submit']{
+        margin-left: 20%;
+      }
+    }
+  }
+}

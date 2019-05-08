@@ -1,0 +1,72 @@
+.product__specs-container{
+  flex: 1;
+  margin-left: 4rem;
+  .product__breadcrumbs{
+    color: #a6a6a6a6;
+  }
+  &--price{
+    margin: 2rem 0;
+  }
+  &--ratings{
+    svg:not(:last-child){
+      margin-right: .5rem;
+    }
+  }
+  & h3{
+    color: $lighter-grey-color;
+    margin-bottom: 1.1rem;
+  }
+  &--colors{
+    .product__allcolors{
+      margin-bottom: 1rem;
+      cursor: pointer;
+      display: flex;
+      div:not(:last-child) {
+        margin-right: 1.4rem;
+      }
+      .cyan, .orange, .yellow {
+        transition: border .1s;
+        border-radius: 50%;
+        width: 2.4rem;
+        height: 2.4rem;
+      }
+      .cyan:hover, .orange:hover, .yellow:hover, .color__active {
+        border: 3px solid $primary-color;
+      }
+      .cyan { background: $cyan-color; }
+      .orange { background: $orange-color; }
+      .yellow { background: $yellow-color;}
+    }
+  } 
+  &--sizes{
+    margin: 1.5rem 0 3.5rem 0;
+    .product__sizes-container{
+      display: flex;
+      .product__size{
+        display: flex;
+        border-radius: 2px;
+        align-items: center;
+        justify-content: center;
+        background: #EFEFEF;
+        transition: all .4s;
+        flex: 1;
+      }
+      .product__size:hover, 
+      .selected__size{
+        cursor: pointer;
+        background: $primary-color;
+        color: $white-color;
+      }
+      .product__size:not(:last-child){
+        margin-right: 1rem;
+      }
+    }
+  }
+  & .product__cart-btn {
+    margin-top: 2.5rem;
+    margin-bottom: 0;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+    width: 22.5rem !important;
+  }
+}

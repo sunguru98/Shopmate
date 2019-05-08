@@ -1,0 +1,86 @@
+.confirmation-container{
+  padding: 0rem 8rem;
+  display: flex;
+  margin-bottom: 6.5rem;
+  &__ordersummary{
+    flex-basis: 70%;
+    margin-right: 5rem;
+    &--subheadings{
+      margin-top: 2.5rem;
+      display: grid;
+      grid-template-columns: 34rem 1fr 1fr;
+      h3{
+        color: $lighter-grey-color;
+      }
+      h3:nth-of-type(1),
+      h3:nth-of-type(2){
+        margin-left: 3rem;
+      }
+      & h3:not(:first-child){
+        text-align: center;
+      }
+    }
+    &--productslist{
+      margin-top: 1rem;
+    }
+    &--product:nth-of-type(odd){
+      background: $lightest-grey-color;
+    }
+    &--product{
+      padding: 2rem 0;
+      padding-left: 2rem;
+      display: grid;
+      grid-template-columns: 34rem 1fr 1fr;
+      align-items: center;
+      .ordersummary-product__quantity, 
+      .ordersummary-product__price{
+        text-align: center;
+      }
+    }
+  }
+  &__deliveryaddress{
+    flex: 1;
+    &--subtitle{
+      margin-top: 2.5rem;
+      color: $lighter-grey-color;
+    }
+    p{
+      margin-top: 2.5rem;
+      line-height: 1.7;
+    }
+  }
+}
+
+hr {
+  width: 98rem;
+  margin: 0 auto;
+  margin-top: 0;
+  margin-bottom: 3.3rem;
+}
+
+.total-container{
+  padding: 0rem 8rem;
+  display: flex;
+  margin-bottom: 3.5rem;
+  &__couponshipping{
+    flex-basis: 70%;
+    display: flex;
+    margin-right: 5rem;
+    justify-content: flex-end;
+    .subtotal__title,
+    .shipping__title{
+      color: $lighter-grey-color;
+      margin-bottom: 5px;
+    }
+    .shipping{
+      margin-left: 6rem;
+    }
+  }
+  &__grandtotal{
+    flex: 1;
+    .grandtotal__title{
+      color: $lighter-grey-color;
+      margin-bottom: 5px; 
+    }
+  }
+}

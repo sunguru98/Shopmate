@@ -1,0 +1,148 @@
+*, *::after, *::before{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body{
+  position: relative;
+}
+textarea{
+  resize: none;
+  width: 80%;
+}
+input::placeholder,
+textarea::placeholder{
+  color: $lighter-grey-color;
+}
+input:focus,
+textarea:focus{
+  outline: none;
+  border-color: $primary-color;
+}
+select {
+  margin: 1rem 0 1.5rem 0;
+  background: transparent;
+  color: $primary-color;
+  cursor: pointer;
+  border: 2px solid $primary-color;
+  outline: none;
+  width: 8.4rem;
+  height: 3.6rem;
+  border-radius: 100px;
+  font-family: Montserrat,
+    sans-serif;
+  font-size: 1.6rem;
+}
+hr{
+  margin-top: 4rem;
+  border: 1px solid #e8e8e8;
+}
+a{
+  text-decoration: none;
+}
+ul{
+  list-style: none;
+}
+.container{
+  position: relative;
+  height: 100%;
+  max-width: 114rem;
+  margin: 0 auto;
+}
+a:visited,
+a:active,
+a:link{
+  color: currentColor;
+}
+body{
+  overflow-x: hidden;
+  background: $lightest-grey-color;
+}
+input[type='text']{
+  border: none;
+  background: transparent;
+  outline: none;
+}
+input[type='text'],
+input[type='text']::placeholder {
+  color: $white-color;
+}
+.primary-color{
+  color: $primary-color !important;
+}
+.white-color{
+  color: $white-color !important;
+}
+.shadowed{
+  box-shadow: 0 1px 1px rgba(#000, .2) 
+}
+.padding-25{
+  padding: 2.5rem;
+}
+.margin-top-25{
+  margin-top: 2.5rem;
+}
+.margin-bottom-5{
+  margin-bottom: 5rem;
+}
+.white-bg{
+  background: $white-color !important;
+}
+.staryellow {
+  path{
+    fill: $star-color;
+  }
+}
+.rounded{
+  border-radius: 50%;
+}
+
+.product__cart-btn {
+  margin-bottom: 1rem;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  text-align: center;
+  padding: 1.3rem 1.8rem;
+  border-radius: 100px;
+  color: $white-color;
+  background: $primary-color;
+}
+.btnghost{
+  background: $white-color !important;
+  color: $primary-color !important;
+}
+.product__buttons {
+  display: flex;
+  align-items: center;
+
+  & button {
+    cursor: pointer;
+    background: #efefef;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3.6rem;
+    height: 3.6rem;
+  }
+
+  .product__quantity-number {
+    border-radius: 100px;
+    border: 1px solid #E1E1E1;
+    padding: 0rem 2rem;
+    margin: 0 1rem;
+  }
+}
+
+input[type='submit']{
+  border: none;
+  background: $primary-color;
+  color: $white-color;
+  padding: 1rem 2rem;
+  border-radius: 100px;
+}
+
+button:hover, a:hover, input[type='submit']:hover{
+  cursor: pointer;
+}
+

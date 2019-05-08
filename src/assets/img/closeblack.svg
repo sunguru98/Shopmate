@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="8px" height="8px" viewBox="0 0 8 8" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.5 (67469) - http://www.bohemiancoding.com/sketch -->
+    <title>closeblack</title>
+    <desc>Created with Sketch.</desc>
+    <g id="sample-pages" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Web-2" transform="translate(-56.000000, -593.000000)">
+            <g id="filter/vertical" transform="translate(30.000000, 503.000000)">
+                <g id="header-with-tags" transform="translate(20.000000, 15.000000)">
+                    <g id="tag-2" transform="translate(0.000000, 63.000000)">
+                        <g id="icons/close/small/black" transform="translate(0.000000, 6.000000)">
+                            <rect id="bounds" x="0" y="0" width="20" height="20"></rect>
+                            <path d="M7,7 L12.6568542,12.6568542" id="line" stroke="#2E2E2E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill-rule="nonzero"></path>
+                            <path d="M7,7 L12.6568542,12.6568542" id="line" stroke="#2E2E2E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill-rule="nonzero" transform="translate(9.828427, 9.828427) scale(-1, 1) translate(-9.828427, -9.828427) "></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,110 @@
+.overlay{
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  background: rgba(#000, .70);
+  z-index: 1;
+}
+.is__shopping{
+  z-index: 2 !important;
+  opacity: 1 !important;
+}
+.shopping__cart{
+  width: 94rem;
+  background: $white-color;
+  position: absolute;
+  z-index: -1;
+  opacity: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -55%);
+  &-closebtn{
+    position: fixed;
+    top: 2.5rem;
+    right: 2.5rem;
+  }
+  &-productscontainer{
+    width: 80rem;
+    margin: 1rem auto 1rem auto;
+  }
+  &-count{
+    margin-bottom: 3rem; 
+  }
+  &-titles{
+    width: 98%;
+    display: grid;
+    grid-template-columns: 40rem 1fr 2fr 1fr;
+    h3 { color: $lighter-grey-color; }
+    & .shopping__cart-title:not(:first-child){
+      text-align: center;
+    }
+  }
+  &-products{
+    margin: 2.5rem 0;
+    max-height: 50rem;
+    overflow-y: auto;
+  }
+  &-product:not(:last-child){
+    margin-bottom: 2.5rem;
+  }
+  &-product{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 40rem 1fr 2fr 1fr;
+    .shopping__cart-details{
+      display: flex;
+      &--image{
+        width: 9.5rem;
+        height: 9.5rem;
+        border: 1px solid #e5e5e5;
+      }
+      &--infos{
+        margin-left: 2.5rem;
+        margin-top: 1.3rem;
+        line-height: 1;
+        &-category{
+          margin-top: 5px;
+          margin-bottom: 1.5rem;
+        }
+        &-removebtn{
+          color: #a6a6a6;
+        }
+      }
+    }
+    & div:not(:first-of-type){
+      text-align: center;
+    }
+    .shopping__cart-size{
+      color: #6c6c6c;
+    }
+    .shopping__cart-quantity{
+      justify-self: center;
+    }
+  }
+  hr{ margin-top: 1.5rem; width: 98%; }
+  &-total{
+    margin-right: 8rem;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: flex-end;
+  }
+  &-buttons{
+    background: #EFEFEF;
+  }
+  &-buttonscontainer{
+    width: 80rem;
+    color: $white-color;
+    margin: 0 auto;
+    padding: 1.5rem 0;
+    display: flex;
+    justify-content: space-between;
+    .shopping__cart-button{
+      font-size: 1.75rem;
+      padding-right: 2.5rem;
+      padding-left: 2.5rem;
+      margin: 0;
+    }
+  }
+}
