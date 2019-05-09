@@ -42,58 +42,86 @@
       }
       .product__colors{
         margin-bottom: 1rem;
-        cursor: pointer;
         display: grid;
         grid-template-columns: repeat(5, 1fr);
         grid-gap: 1rem;
         justify-content: center;
         align-items: center;
-        div:not(:last-child){
-          //margin-right: 1.4rem;
-        }
+        
         div{
+          cursor: pointer;
           transition: border .1s;
           border-radius: 50%;
           width: 2.4rem;
           height: 2.4rem;
+          border: 3px solid transparent;
         }
         div:hover:not(.red):not(.white),
         .color__active {
-          border: 3px solid $primary-color;
+          border-color: $primary-color;
         }
         .red:hover,
         .white:hover,
         .white.color__active,
-        .red.color__active{
-          border: 3px solid $black-color;
+        .red.color__active {
+          border-color: $black-color;
         }
+        .cyan:hover,
+        .orange:hover,
+        .yellow:hover,
+        .color__active {
+          border-color: $primary-color
+        }
+
+        .black:hover,
+        .black.color__active {
+          border-color: $primary-color;
+        }
+
+        .red:hover,
+        .white:hover,
+        .red.color__active,
+        .white.color__active {
+          border-color: #000;
+        }
+
         .white {
-          background: $white-color;
+          background: $lightest-grey-color;
+          border-color: $lighter-grey-color;
         }
+
         .orange {
           background: $orange-color;
         }
-        .red{
+
+        .red {
           background: red;
         }
-        .black{
+
+        .black {
           background: $black-color;
         }
+
         .yellow {
           background: yellow;
         }
-        .green{
+
+        .green {
           background: green;
         }
-        .blue{
+
+        .blue {
           background: blue;
         }
-        .indigo{
+
+        .indigo {
           background: indigo;
         }
-        .purple{
-          background: green;
+
+        .purple {
+          background: purple;
         }
+        
       } 
       .product__decisions{
         display: flex;

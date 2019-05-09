@@ -12,7 +12,7 @@
         <a>{{page}}</a>
       </li>
     </ul>
-    <button v-if="currentPageNumber+1 !== totalPages" @click.prevent="incrementPage" style="cursor: pointer; display: flex; border:none; outline: none">
+    <button v-if="currentPageNumber+1 !== totalPages && totalPages!==0" @click.prevent="incrementPage" style="cursor: pointer; display: flex; border:none; outline: none">
       <img src="@/assets/img/rarrow.svg" alt="Right arrow icon" class="next-products">
     </button>
   </div>

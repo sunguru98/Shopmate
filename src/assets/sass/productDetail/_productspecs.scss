@@ -3,13 +3,20 @@
   margin-left: 4rem;
   .product__breadcrumbs{
     color: #a6a6a6a6;
+    a{ transition: color .4s; }
+    a:hover{
+      color: $primary-color;
+    }
   }
   &--price{
     margin: 2rem 0;
   }
   &--ratings{
-    svg:not(:last-child){
+    img:not(:last-child){
       margin-right: .5rem;
+    }
+    .goldstar{
+      background: url('~/src/assets/img/goldstar.svg')
     }
   }
   & h3{
@@ -24,18 +31,61 @@
       div:not(:last-child) {
         margin-right: 1.4rem;
       }
-      .cyan, .orange, .yellow {
+      div {
         transition: border .1s;
         border-radius: 50%;
         width: 2.4rem;
         height: 2.4rem;
+        border: 3px solid transparent;
       }
       .cyan:hover, .orange:hover, .yellow:hover, .color__active {
-        border: 3px solid $primary-color;
+        border-color: $primary-color
       }
-      .cyan { background: $cyan-color; }
-      .orange { background: $orange-color; }
-      .yellow { background: $yellow-color;}
+      .black:hover,
+      .black.color__active{
+        border-color: $primary-color;
+      }
+      .red:hover,
+      .white:hover,
+      .red.color__active,
+      .white.color__active{
+        border-color: #000;
+      }
+      .white {
+        background: $lightest-grey-color;
+        border-color: $lighter-grey-color;
+      }
+      .orange {
+        background: $orange-color;
+      }
+
+      .red {
+        background: red;
+      }
+
+      .black {
+        background: $black-color;
+      }
+
+      .yellow {
+        background: yellow;
+      }
+
+      .green {
+        background: green;
+      }
+
+      .blue {
+        background: blue;
+      }
+
+      .indigo {
+        background: indigo;
+      }
+
+      .purple {
+        background: purple;
+      }
     }
   } 
   &--sizes{

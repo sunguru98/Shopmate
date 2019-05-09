@@ -1,4 +1,3 @@
-import imgToSvg from '@/assets/js/imgToSvg.js'
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
@@ -15,7 +14,6 @@ new Vue({
 }).$mount('#app')
 
 router.beforeEach((to, from, next) => {
-  console.log(to, from)
   document.title = to.meta.title
   next()
 })

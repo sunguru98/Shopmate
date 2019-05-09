@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './pages/PageHome.vue'
-import About from './pages/About.vue'
+import ProductDetail from './pages/PageProductDetail.vue'
 
 Vue.use(Router)
 
@@ -11,19 +11,20 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'home',
+      name: 'Home',
       component: Home,
       meta: {
         title: 'Shopmate - Home'
       }
     },
     {
-      path: '/about',
-      name: 'about',
-      component: About,
+      path: '/product/:id',
+      name: 'ProductDetail',
+      component: ProductDetail,
       meta: {
-        title: 'Shopmate - Home'
-      }
+        title: 'Shopmate - Detail'
+      },
+      props: true
     }
   ]
 })

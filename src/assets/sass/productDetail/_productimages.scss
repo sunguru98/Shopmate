@@ -6,18 +6,26 @@
   &--currentimg{
     width: 35rem;
     height: 39rem;
+    overflow: hidden;
+    transition: transform .4s;
+    &:hover {
+      transform: scale(1.05);
+    }
   }
   &--smallimgs {
     margin-top: 4.5rem;
     & img{
-      border: 1px solid transparent;
+      border: 3px solid transparent;
+      border-radius: 6px;
       width: 7.2rem;
       height: 7.2rem;
+      transition: border .4s;
+      transition: transform .4s;
     }
     & img:not(:last-child){
-      margin-right: 5px;
+      margin-right: 1rem;
     }
-    & img:hover, .selected-image{
+    & img:hover, .selected__image{
       cursor: pointer;
       border-color: $primary-color;
     }

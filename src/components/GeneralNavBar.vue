@@ -12,11 +12,11 @@
         </ul>
       </div>
       <div class="general__navbar-cart">
-        <div class="general__navbar-cart--notifications">
+        <div class="general__navbar-cart--notifications" >
           <a href="" style="display: flex" @click.prevent="showCart"><img src="@/assets/img/cart.svg" alt="Cart image" class="cart__image"></a>
-          <span class="cart__badge">6</span>
+          <span class="cart__badge" v-if="cartItems.length > 0">{{cartItems.length}}</span>
         </div>
-        <h3 class="general__navbar-cart--amount">Your bag: $45.32</h3>
+        <h3 class="general__navbar-cart--amount">Your bag: ${{cartItems.length === 0 ? '0.00' : totalAmount}}</h3>
       </div>
     </div>
   </nav>
@@ -27,6 +27,14 @@ export default {
   methods: {
     showCart () {
       this.$emit('cartClicked')
+    }
+  },
+  computed: {
+    cartItems () {
+      return this.$store.getters.getShoppingCartItems
+    },
+    totalAmount () {
+      return this.$store.getters.cartTotalAmount
     }
   }
 }

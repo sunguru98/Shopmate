@@ -2,13 +2,14 @@
   <div v-if="asyncDataStatus_ready">
     <main class="all-products" style="opacity: 1">
       <FiltersArea :count="products.count"/>
-      <AppLoadingComponent v-show="loadingState"/>
+      <Spinner v-show="loadingState"/>
       <section class="products-area">
         <ProductCarousel :currentPageNumber="currentPageNumber" 
         :totalPages="totalPages"
         @pageClicked="changePageNumber"
         @incrementPage="incrementPage()" 
         @decrementPage="decrementPage()"/>
+        <h1 style="text-align: center" v-if="totalPages === 0 && !loadingState">Sorry! No products under the given search</h1>
         <ProductList :products="products.products" v-show="!loadingState"/>
       </section>
     </main>
@@ -18,7 +19,7 @@
 <script>
 // @ is an alias to /src
 import {mapGetters, mapActions} from 'vuex'
-import AppLoadingComponent from '@/components/AppLoadingComponent.vue'
+import Spinner from '@/components/AppLoadingComponent.vue'
 import asyncDataStatus from '@/mixins/asyncDataStatus'
 import FiltersArea from '@/components/FiltersAreaComponent.vue'
 import ProductList from '@/components/ProductList.vue'
@@ -35,7 +36,7 @@ export default {
     ProductList,
     ProductCarousel,
     FiltersArea,
-    AppLoadingComponent
+    Spinner
   },
   computed: {
     ...mapGetters({
@@ -75,8 +76,5 @@ export default {
 <style lang="scss" scoped>
   span, p{
     font-weight: normal;
-  }
-  select{
-    font-weight: 700;
   }
 </style>

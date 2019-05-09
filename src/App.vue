@@ -5,7 +5,7 @@
     <div class="container">
       <ShoppingCart :displayStatus="isCartClicked" @closeCart="isCartClicked = false"/>
       <router-view v-show="revealPage" @pageReady="revealPage = true"/>
-      <AppLoadingComponent v-show="!revealPage"/>
+      <Spinner v-show="!revealPage"/>
     </div>
   </div>
 </template>
@@ -13,7 +13,7 @@
 <script>
 import asyncDataStatus from '@/mixins/asyncDataStatus'
 import {mapGetters} from 'vuex'
-import AppLoadingComponent from '@/components/AppLoadingComponent.vue'
+import Spinner from '@/components/AppLoadingComponent.vue'
 import TheNavBar from '@/components/TheHeader.vue'
 import ShoppingCart from '@/components/ShoppingCart.vue'
 export default {
@@ -31,20 +31,29 @@ export default {
   },
   created () {
     this.$router.beforeEach((to, from, next) => {
-      // to and from are both route objects. must call `next`.
       this.revealPage = false
       next()
     })
     this.$store.dispatch('fetchDepartments')
     .then(() => this.$store.dispatch('fetchCategories'))
+    .then(() => this.$store.dispatch('fetchCartId'))
     .then(() => this.asyncDataStatusFetch())
   },
   components: {
-    TheNavBar, ShoppingCart, AppLoadingComponent
+    TheNavBar, ShoppingCart, Spinner
   }
 }
 </script>
 
 <style lang="scss">
   @import '@/assets/sass/main.scss';
+  span{
+    font-weight: normal
+  }
+  select, button{
+    font-weight: 700;
+  }
+  .product__breadcrumbs a{
+    font-family: 'Open Sans', sans-serif;
+  }
 </style>

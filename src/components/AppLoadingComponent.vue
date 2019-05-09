@@ -20,7 +20,7 @@ export default {};
   display: inline-block;
   position: absolute;
   top: 40vh;
-  left: 60%;
+  left: 50%;
   width: 64px;
   height: 64px;
 }

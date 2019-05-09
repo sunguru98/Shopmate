@@ -63,6 +63,9 @@ input[type='text']{
   background: transparent;
   outline: none;
 }
+button:focus{
+  outline: none;
+}
 input[type='text'],
 input[type='text']::placeholder {
   color: $white-color;
@@ -145,4 +148,6 @@ input[type='submit']{
 button:hover, a:hover, input[type='submit']:hover{
   cursor: pointer;
 }
+
+
 
