@@ -12,11 +12,6 @@
         <span class="product__breadcrumbs">
           <router-link :to="{name: 'Home'}">Home</router-link>&nbsp;&middot;&nbsp;Shirts
         </span>
-        <!-- <ul class="product__specs-container--ratings">
-          <li :key="rating" v-for="rating in averageRating">
-            <img :src="rating <= averageRating ? '@/assets/img/goldstar.svg':'@/assets/img/star.svg'" alt="Star image">
-          </li>
-        </ul> -->
         <h2 class="product__specs-container--name">
           {{product.name}}
         </h2>
@@ -25,15 +20,15 @@
           <h3>Color</h3>
           <div v-if="product.colors" class="product__allcolors">
             <div :key="color.attribute_value_id"
-              @click="selectedColor = color.attribute_value.toLowerCase()"
-              :class="[color.attribute_value.toLowerCase(), {color__active: color.attribute_value.toLowerCase() == selectedColor}]" v-for="color in product.colors">
+              @click="cartObj.attributes.color = color.attribute_value"
+              :class="[color.attribute_value.toLowerCase(), {color__active: color.attribute_value == cartObj.attributes.color}]" v-for="color in product.colors">
             </div>
           </div>
         </div>
         <div class="product__specs-container--sizes">
           <h3>Size</h3>
           <ul class="product__sizes-container">
-            <li @click="selectedSize = size.attribute_value" :class="['product__size', {selected__size: size.attribute_value == selectedSize}]" 
+            <li @click="cartObj.attributes.size = size.attribute_value" :class="['product__size', {selected__size: size.attribute_value == cartObj.attributes.size}]" 
             v-for="size in product.sizes" :key="size.attribute_value_id">{{size.attribute_value}}</li>
           </ul>
         </div>
@@ -49,7 +44,7 @@
             </button>
           </div>
         </div>
-        <button class="product__cart-btn">Add to Cart</button>
+        <button @click="addItemToCartWithQuantity" class="product__cart-btn" :disabled="!inputReceived">Add to Cart</button>
       </div>
     </div>
     <div class="reviews-container padding-25">
@@ -102,11 +97,13 @@
 </template>
 
 <script>
+import cartObject from '@/mixins/cartObject'
 import moment from 'moment'
+import {mapGetters} from 'vuex'
 import asyncDataStatus from '@/mixins/asyncDataStatus'
 export default {
   props: ['id'],
-  mixins: [asyncDataStatus],
+  mixins: [asyncDataStatus, cartObject],
   filters: {
     humanReadableTime (value) {
       return moment(value).startOf('day').fromNow(); 
@@ -115,12 +112,24 @@ export default {
   data () {
     return {
       productQuantity: 1,
-      selectedImage: '',
-      selectedColor: '',
-      selectedSize: ''
+      selectedImage: null
+    }
+  },
+  methods: {
+    addItemToCartWithQuantity () {
+      this.$store.dispatch('addItemsToCart', 
+      { cartObj: { 
+          ...this.cartObj, 
+          attributes: JSON.stringify(this.cartObj.attributes)
+        }, 
+        cartQuantity: this.productQuantity
+      })
     }
   },
   computed: {
+    ...mapGetters({
+      cartId: 'getCartId'
+    }),
     product () {
       return this.$store.state.singleProduct
     },
@@ -134,10 +143,9 @@ export default {
   created () {
     this.$store.dispatch('fetchProductsByID', this.id)
       .then(() => {
+        this.cartObj.product_id = parseInt(this.id)
         this.$store.dispatch('fetchReviewsByProductID', this.id)
         this.selectedImage = this.product.image,
-        this.selectedColor = this.product.colors[0].attribute_value.toLowerCase(),
-        this.selectedSize = this.product.sizes[0].attribute_value,
         this.asyncDataStatusFetch() 
       })
   }

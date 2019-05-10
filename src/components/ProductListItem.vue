@@ -30,6 +30,7 @@
 </template>
 
 <script>
+import cartObject from '@/mixins/cartObject'
 import {mapGetters} from 'vuex'
 export default {
   props: {
@@ -38,25 +39,11 @@ export default {
       required: true
     }
   },
-  data () {
-    return {
-      cartObj: {
-        cart_id: null,
-        product_id: this.product.product_id,
-        attributes: {
-          color: null,
-          size: null
-        }
-      }
-    }
-  },
+  mixins: [cartObject],
   computed: {
     ...mapGetters({
       cartId: 'getCartId'
     }),
-    inputReceived () {
-      return this.cartObj.attributes.size !== null && this.cartObj.attributes.color !== null
-    }
   },
   methods: {
     addItemToCart () {
@@ -64,7 +51,7 @@ export default {
     }
   },
   created () {
-    this.cartObj.cart_id = this.cartId
+    this.cartObj.product_id = this.product.product_id
     this.cartObj.attributes.size = 'Size'
   }
 }
