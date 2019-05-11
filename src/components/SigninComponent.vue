@@ -8,13 +8,17 @@
       <input v-model="email" type="email" name="email" id="signemail" placeholder="Email">
       <input v-model="password" type="password" name="password" id="signpassword" placeholder="Password">
       <input type="submit" value="Sign In">
-      <a href="https://www.facebook.com" class="signin-container--form__facebook">Sign in with facebook</a>
+      <FacebookLoginButton />
     </form>
   </div>
 </template>
 
 <script>
+import FacebookLoginButton from '@/components/FacebookLoginButton.vue'
 export default {
+  components: {
+    FacebookLoginButton
+  },
   data () {
     return {
       email : '',

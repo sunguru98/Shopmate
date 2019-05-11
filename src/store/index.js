@@ -205,6 +205,11 @@ export default new Vuex.Store({
       commit('setUserDetails', { ...response.data.customer })
     },
 
+    async signInWithFacebook ({ state, commit }, accessToken) {
+      const response = await axios.post(`${state.endpointAddress}/customers/facebook`, { access_token: accessToken })
+      console.log(response)
+    },
+
     // DELETE RELATED ACTIONS
     async removeShoppingCartItem ({ state, commit }, cartItemId) {
       console.log(cartItemId)
