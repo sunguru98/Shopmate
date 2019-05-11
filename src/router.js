@@ -5,6 +5,7 @@ import Home from '@/pages/PageHome.vue'
 import Authorize from '@/pages/PageAuthorize.vue'
 import ProductDetail from '@/pages/PageProductDetail.vue'
 import Logout from '@/components/LogoutComponent.vue'
+import Profile from '@/pages/PageProfile.vue'
 
 Vue.use(Router)
 
@@ -54,17 +55,25 @@ const router = new Router({
       meta: {
         requiresAuth: true
       }
+    },
+    {
+      path: '/profile',
+      name: 'Profile',
+      component: Profile,
+      meta: {
+        title: 'Shopmate - Profile',
+        requiresAuth: true
+      }
     }
   ]
 })
 router.beforeEach((to, from, next) => {
-  console.log(to, from)
   document.title = to.meta.title
   if (to.matched.some(route => route.meta.requiresAuth)) {
     if (store.getters.isLoggedIn) {
       next()
     } else {
-      next({ name: 'Signin', query: { redirectTo: to.path } })
+      next({ name: 'Signin' })
       document.title = 'Shopmate - Signin'
     }
   } else if (to.matched.some(route => route.meta.requiresVisitor)) {

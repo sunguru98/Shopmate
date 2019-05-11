@@ -68,24 +68,29 @@
         </ul>
         <hr>
       </div>
-      <div class="add_reviews">
-        <h2>Add a review</h2>
-        <form action="#" class="review__form">
-          <div class="review__form--username">
-            <label for="username">Username</label>
-            <input type="text" name="username" id="username">
+      <h3 v-if="!isLoggedIn" style="text-align: center">
+          Please <router-link :to="{name: 'Signin'}" class="primary-color">Sign in</router-link> or 
+          <router-link :to="{name: 'Regiser'}" class="primary-color">Register</router-link> to add reviews
+      </h3>
+      <div class="add_reviews" v-else>
+        <div class="container__combined" style="display: flex; align-items: center">
+          <h2>Add a Review</h2>
+          <div v-show="errorMessage" class="error__message" style="width: 50%; margin-left: 5rem">{{errorMessage}}
+            <button @click="errorMessage = null" class="error__message--btn"><img src="@/assets/img/closewhite.svg" alt="Close button"></button>
           </div>
+        </div>
+        <form action="#" class="review__form" @submit.prevent="addReview">
           <div class="review__form--review-text">
             <label for="review-text">Your review</label>
             <div class="review-text__textarea">
-              <textarea id="review-text" name="review-text" cols="54" rows="8"></textarea>
-              <span class="review-text__note">Your review must be at least 50 characters</span>
+              <textarea v-model="reviewText" id="review-text" name="review-text" cols="54" rows="8" required></textarea>
+              <span class="review-text__note">Your review must be at least {{minNumberOfCharacters}} characters</span>
             </div>
           </div>
           <div class="review__form--rating">
             <label for="rating">Overall rating</label>
-            <select name="rating" id="rating">
-              <option value="" selected disabled>None</option>
+            <select name="rating" id="rating" v-model="rating" required>
+              <option value="0" selected disabled>None</option>
               <option v-for="rating in 5" :value="rating" :key="rating">{{rating}}</option>
             </select>
           </div>
@@ -106,13 +111,17 @@ export default {
   mixins: [asyncDataStatus, cartObject],
   filters: {
     humanReadableTime (value) {
-      return moment(value).startOf('day').fromNow(); 
+      return moment(value).startOf('now').fromNow(); 
     }
   },
   data () {
     return {
+      errorMessage: null,
+      minNumberOfCharacters: 50,
       productQuantity: 1,
-      selectedImage: null
+      selectedImage: null,
+      reviewText: null,
+      rating: null
     }
   },
   methods: {
@@ -124,11 +133,23 @@ export default {
         }, 
         cartQuantity: this.productQuantity
       })
+    },
+    addReview () {
+      if(this.reviewText.length < 50){
+        this.errorMessage = "Review text must contain atleast 50 characters"
+      } else {
+        this.$store.dispatch('addReview', {
+          product_id: this.id,
+          review: this.reviewText,
+          rating: this.rating
+        })
+      }
     }
   },
   computed: {
     ...mapGetters({
-      cartId: 'getCartId'
+      cartId: 'getCartId',
+      isLoggedIn: 'isLoggedIn'
     }),
     product () {
       return this.$store.state.singleProduct
@@ -141,6 +162,7 @@ export default {
     }
   },
   created () {
+    this.rating = 0
     this.$store.dispatch('fetchProductsByID', this.id)
       .then(() => {
         this.cartObj.product_id = parseInt(this.id)

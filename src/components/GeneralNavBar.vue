@@ -6,7 +6,7 @@
       </h3>
       <h3 class="general__navbar-greeting" v-if="isLoggedIn">
         Hi! {{userName}} &nbsp;
-        <router-link :to="{name: 'Register'}" class="primary-color">My Profile</router-link>&nbsp;&nbsp;
+        <router-link :to="{name: 'Profile'}" class="primary-color">My Profile</router-link>&nbsp;&nbsp;
         <router-link :to="{name: 'Logout'}" class="primary-color">Logout</router-link>
       </h3>
       <div class="general__navbar-sales">

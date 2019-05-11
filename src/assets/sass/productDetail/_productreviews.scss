@@ -20,8 +20,8 @@
     }
   }
   .add_reviews{
-    h2{
-      margin: 5rem 0 3rem 0;
+    .container__combined {
+      margin-bottom: 2rem;
     }
     .review__form{
       &--username, &--review-text, &--rating{

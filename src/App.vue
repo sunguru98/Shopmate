@@ -40,6 +40,7 @@ export default {
     .then(() => this.$store.dispatch('fetchCategories'))
     .then(() => this.$store.dispatch('fetchCartId'))
     .then(() => this.accessToken ? this.$store.dispatch('fetchUserDetails') : '')
+    .then(() => this.$store.dispatch('fetchShippingRegions'))
     .then(() => this.asyncDataStatusFetch())
   },
   components: {

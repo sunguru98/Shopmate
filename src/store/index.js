@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 /* eslint-disable no-undef */
 import Vue from 'vue'
 import Vuex from 'vuex'
@@ -21,7 +22,8 @@ export default new Vuex.Store({
     singleProduct: {},
     categories: {},
     departments: {},
-    imagesEndpoint: `https://backendapi.turing.com/images/products`
+    imagesEndpoint: `https://backendapi.turing.com/images/products`,
+    shippingRegions: []
   },
   getters: {
     getShoppingCartItems: state => state.shoppingCartItems,
@@ -31,6 +33,8 @@ export default new Vuex.Store({
     allDepartments: state => state.departments,
     allCategories: state => state.categories,
     allReviews: state => state.reviews,
+    allShippingRegions: state => state.shippingRegions,
+
     // Computations
     cartTotalAmount: state => {
       let total = state.shoppingCartItems.reduce((acc, item) => acc + parseFloat(item.subtotal), 0)
@@ -70,6 +74,7 @@ export default new Vuex.Store({
     },
 
     logOut ({ commit }) {
+      console.log('Called')
       $cookies.remove('accessToken')
       commit('setAccessToken', null)
     },
@@ -168,8 +173,23 @@ export default new Vuex.Store({
       commit('setUserDetails', { ...response.data })
     },
 
+    async fetchShippingRegions ({ state, commit }) {
+      const response = await axios.get(`${state.endpointAddress}/shipping/regions`)
+      commit('setShippingRegions', response.data)
+    },
+
     // POST RELATED ACTIONS
-    async postReview ({ state, commit, dispatch }) {
+    async addReview ({ state, commit, dispatch }, { product_id, review, rating }) {
+      let date = Date.now()
+      let reviewObject = { created_on: date, review, rating, name: state.userDetails.name }
+      commit('addNewReview', { ...reviewObject })
+      const response = await axios({
+        method: 'POST',
+        data: { product_id, review, rating },
+        headers: { 'user-key': $cookies.get('accessToken') },
+        url: `${state.endpointAddress}/products/${product_id}/reviews`
+      })
+      console.log(response)
     },
 
     async addItemToCart ({ state, commit }, cartObj) {
@@ -226,9 +246,42 @@ export default new Vuex.Store({
         item.image = state.shoppingCartItemsImages.find(image => item.item_id === image.itemId).itemImage
       })
       commit('setShoppingCartItems', response.data)
+    },
+
+    async updateUserCredentials ({ state, commit, dispatch }, userObj) {
+      commit('setLoadingState', true)
+      const response = await axios({
+        method: 'PUT',
+        data: userObj,
+        headers: { 'user-key': $cookies.get('accessToken') },
+        url: `${state.endpointAddress}/customer`
+      })
+      console.log(response)
+      dispatch('logOut')
+      commit('setUserDetails', { ...response.data.customer })
+      commit('setLoadingState', false)
+    },
+
+    async updateUserAddress ({ state, commit }, { address_1, city, country, postal_code, region, shipping_region_id }) {
+      commit('setLoadingState', true)
+      const response = await axios({
+        method: 'PUT',
+        data: { address_1, city, country, postal_code, region, shipping_region_id },
+        headers: { 'user-key': $cookies.get('accessToken') },
+        url: `${state.endpointAddress}/customers/address`
+      })
+      console.log(response)
+      commit('setUserDetails', { ...response.data.customer })
+      commit('setLoadingState', false)
     }
   },
   mutations: {
+    addNewReview (state, reviewObj) {
+      Vue.set(state.reviews, state.reviews.length, reviewObj)
+    },
+    setShippingRegions (state, shippingRegions) {
+      state.shippingRegions = shippingRegions
+    },
     addCartItemImage (state, cartItemIdObj) {
       state.shoppingCartItemsImages.push(cartItemIdObj)
     },

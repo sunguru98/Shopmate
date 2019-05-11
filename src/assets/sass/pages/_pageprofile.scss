@@ -1,6 +1,9 @@
 .profile__container{
   background: $white-color;
   padding: 3rem;
+  &--credentials {
+    margin-bottom: 3rem;
+  }
   &--credentialsform,
   &--addressform{
     margin: 2rem 0;
