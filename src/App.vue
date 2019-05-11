@@ -4,7 +4,7 @@
     <div :class="{'overlay': isCartClicked}"></div>
     <div class="container">
       <ShoppingCart :displayStatus="isCartClicked" @closeCart="isCartClicked = false"/>
-      <router-view v-show="revealPage" @pageReady="revealPage = true"/>
+      <router-view :key="$route.path" v-show="revealPage" @pageReady="revealPage = true"/>
       <Spinner v-show="!revealPage"/>
     </div>
   </div>
@@ -12,7 +12,7 @@
 
 <script>
 import asyncDataStatus from '@/mixins/asyncDataStatus'
-import {mapGetters} from 'vuex'
+import { mapGetters,mapState } from 'vuex'
 import Spinner from '@/components/AppLoadingComponent.vue'
 import TheNavBar from '@/components/TheHeader.vue'
 import ShoppingCart from '@/components/ShoppingCart.vue'
@@ -26,17 +26,20 @@ export default {
   },
   computed: {
     ...mapGetters({
-      departments: 'allDepartments'
-    })
+      departments: 'allDepartments',
+    }),
+    ...mapState(['accessToken'])
   },
   created () {
     this.$router.beforeEach((to, from, next) => {
       this.revealPage = false
       next()
     })
+    
     this.$store.dispatch('fetchDepartments')
     .then(() => this.$store.dispatch('fetchCategories'))
     .then(() => this.$store.dispatch('fetchCartId'))
+    .then(() => this.accessToken ? this.$store.dispatch('fetchUserDetails') : '')
     .then(() => this.asyncDataStatusFetch())
   },
   components: {

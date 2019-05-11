@@ -13,7 +13,4 @@ new Vue({
   render: h => h(App)
 }).$mount('#app')
 
-router.beforeEach((to, from, next) => {
-  document.title = to.meta.title
-  next()
-})
+

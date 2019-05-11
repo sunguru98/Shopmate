@@ -1,12 +1,17 @@
 <template>
   <nav class="general__navbar topbar">
     <div class="container">
-      <h3 class="general__navbar-greeting">
-        Hi! <a href="#" class="primary-color">Sign in</a> or <a href="#" class="primary-color">Register</a>
+      <h3 class="general__navbar-greeting" v-if="!isLoggedIn">
+        <router-link :to="{name: 'Signin'}" class="primary-color">Sign in</router-link> or <router-link :to="{name: 'Register'}" class="primary-color">Register</router-link>
+      </h3>
+      <h3 class="general__navbar-greeting" v-if="isLoggedIn">
+        Hi! {{userName}} &nbsp;
+        <router-link :to="{name: 'Register'}" class="primary-color">My Profile</router-link>&nbsp;&nbsp;
+        <router-link :to="{name: 'Logout'}" class="primary-color">Logout</router-link>
       </h3>
       <div class="general__navbar-sales">
         <ul>
-          <li><a href="">Daily Deals</a></li>
+          <li><router-link :to="{name: 'Signin'}">Daily deals</router-link></li>
           <li><a href="">Sell</a></li>
           <li><a href="">Help & Contact</a></li>
         </ul>
@@ -30,11 +35,17 @@ export default {
     }
   },
   computed: {
+    isLoggedIn () {
+      return this.$store.getters.isLoggedIn
+    },
     cartItems () {
       return this.$store.getters.getShoppingCartItems
     },
     totalAmount () {
       return this.$store.getters.cartTotalAmount
+    },
+    userName () {
+      return this.$store.getters.fetchFirstName
     }
   }
 }

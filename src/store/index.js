@@ -1,13 +1,18 @@
+/* eslint-disable no-undef */
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
+import VueCookies from 'vue-cookies'
 
 Vue.use(Vuex)
+Vue.use(VueCookies)
 
 export default new Vuex.Store({
   state: {
+    accessToken: $cookies.get('accessToken') || null,
+    userDetails: {},
     loadingState: false,
-    cartId: null,
+    cartId: $cookies.get('cartId') || null,
     shoppingCartItems: [],
     shoppingCartItemsImages: [],
     endpointAddress: `https://backendapi.turing.com`,
@@ -30,7 +35,9 @@ export default new Vuex.Store({
     cartTotalAmount: state => {
       let total = state.shoppingCartItems.reduce((acc, item) => acc + parseFloat(item.subtotal), 0)
       return parseFloat(Math.round(total * 100) / 100).toFixed(2)
-    }
+    },
+    isLoggedIn: state => state.accessToken !== null,
+    fetchFirstName: state => Object.keys(state.userDetails).length > 0 ? state.userDetails.name.split(' ')[0] : ''
   },
   actions: {
     // Common function
@@ -62,11 +69,17 @@ export default new Vuex.Store({
       return allProducts
     },
 
-    // All API Methods
+    logOut ({ commit }) {
+      $cookies.remove('accessToken')
+      commit('setAccessToken', null)
+    },
+
+    // All GET Methods
     async fetchCartId ({ commit, state }) {
       const response = await axios.get(`${state.endpointAddress}/shoppingCart/generateUniqueId`)
-      commit('setCartId', response.data.cart_id)
+      $cookies.set('cartId', response.data.cart_id, '30min')
     },
+
     async fetchProducts ({ commit, state, dispatch }, page = 1) {
       commit('setLoadingState', true)
       const limit = 15
@@ -135,13 +148,24 @@ export default new Vuex.Store({
           commit('setLoadingState', false)
         })
     },
+
     async fetchDepartments ({ commit, state }) {
       const response = await axios.get(`${state.endpointAddress}/departments`)
       commit('setDepartments', response.data)
     },
+
     async fetchCategories ({ state, commit }) {
       const response = await axios.get(`${state.endpointAddress}/categories`)
       commit('setCategories', response.data.rows)
+    },
+
+    async fetchUserDetails ({ state, commit }) {
+      const response = await axios({
+        method: 'GET',
+        headers: { 'user-key': $cookies.get('accessToken') },
+        url: `${state.endpointAddress}/customer`
+      })
+      commit('setUserDetails', { ...response.data })
     },
 
     // POST RELATED ACTIONS
@@ -165,6 +189,22 @@ export default new Vuex.Store({
       commit('setLoadingState', false)
     },
 
+    async signInUser ({ state, commit }, { email, password }) {
+      const response = await axios.post(`${state.endpointAddress}/customers/login`, { email, password })
+      console.log(response.data)
+      $cookies.set('accessToken', response.data.accessToken, response.data.expires_in)
+      commit('setAccessToken', response.data.accessToken)
+      commit('setUserDetails', { ...response.data.customer })
+    },
+
+    async registerUser ({ state, commit }, { name, email, password }) {
+      const response = await axios.post(`${state.endpointAddress}/customers`, { name, email, password })
+      console.log(response.data)
+      $cookies.set('accessToken', response.data.accessToken, response.data.expires_in)
+      commit('setAccessToken', response.data.accessToken)
+      commit('setUserDetails', { ...response.data.customer })
+    },
+
     // DELETE RELATED ACTIONS
     async removeShoppingCartItem ({ state, commit }, cartItemId) {
       console.log(cartItemId)
@@ -186,6 +226,12 @@ export default new Vuex.Store({
   mutations: {
     addCartItemImage (state, cartItemIdObj) {
       state.shoppingCartItemsImages.push(cartItemIdObj)
+    },
+    setAccessToken (state, accessToken) {
+      state.accessToken = accessToken
+    },
+    setUserDetails (state, userObj) {
+      state.userDetails = userObj
     },
     setCartId (state, cartId) {
       state.cartId = cartId
