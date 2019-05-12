@@ -56,7 +56,7 @@
       <div class="shopping__cart-buttons">
         <div class="shopping__cart-buttonscontainer">
           <a @click="closeCart" class="shopping__cart-button product__cart-btn btnghost">Back to Shop</a>
-          <a href="#" class="shopping__cart-button product__cart-btn" v-if="cartItems.length > 0">Checkout</a>
+          <a @click="checkOutCart" class="shopping__cart-button product__cart-btn" v-if="cartItems.length > 0">Checkout</a>
         </div>
       </div>
     </section>
@@ -73,26 +73,16 @@ export default {
       return this.$store.getters.cartTotalAmount
     }
   },
-  filters: {
-    parsedColorValue (jsonObject) {
-      return JSON.parse(jsonObject).color
-    },
-    parsedSizeValue (jsonObject) {
-      return JSON.parse(jsonObject).size
-    }
-  },
-  props: {
-    displayStatus: {
-      type: Boolean,
-      required: true
-    }
-  },
   methods: {
     closeCart () {
       this.$emit('closeCart')
     },
     removeCartItem (cartItemId) {
       this.$store.dispatch('removeShoppingCartItem', cartItemId)
+    },
+    checkOutCart () {
+      this.$router.push({name: 'Delivery'})
+      this.closeCart()
     },
     handleCountingAction (itemQuantity, type, cartItemId) {
       if (type === 'plus') {
@@ -105,6 +95,20 @@ export default {
           this.$store.dispatch('updateCartItemQuantity', {item_id: cartItemId, quantity: itemQuantity-1})
         }
       }
+    }
+  },
+  filters: {
+    parsedColorValue (jsonObject) {
+      return JSON.parse(jsonObject).color
+    },
+    parsedSizeValue (jsonObject) {
+      return JSON.parse(jsonObject).size
+    }
+  },
+  props: {
+    displayStatus: {
+      type: Boolean,
+      required: true
     }
   }
 }

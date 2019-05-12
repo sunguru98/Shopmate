@@ -70,7 +70,7 @@
       </div>
       <h3 v-if="!isLoggedIn" style="text-align: center">
           Please <router-link :to="{name: 'Signin'}" class="primary-color">Sign in</router-link> or 
-          <router-link :to="{name: 'Regiser'}" class="primary-color">Register</router-link> to add reviews
+          <router-link :to="{name: 'Register'}" class="primary-color">Register</router-link> to add reviews
       </h3>
       <div class="add_reviews" v-else>
         <div class="container__combined" style="display: flex; align-items: center">

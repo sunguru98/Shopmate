@@ -36,6 +36,9 @@ export default {
       this.$emit('cartClicked')
     },
     searchProducts () {
+      if(this.$route.name !== "Home"){
+        this.$router.push({name: 'Home'})
+      }
       this.$store.dispatch('fetchProductsBySearch', this.searchQuery)
     },
     departmentSelected (depObj) {

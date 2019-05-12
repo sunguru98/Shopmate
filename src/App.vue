@@ -38,7 +38,7 @@ export default {
     
     this.$store.dispatch('fetchDepartments')
     .then(() => this.$store.dispatch('fetchCategories'))
-    .then(() => this.$store.dispatch('fetchCartId'))
+    .then(() => !this.$store.getters.isLoggedIn ? this.$store.dispatch('fetchCartId') : this.$store.dispatch('fetchProductsOnCart'))
     .then(() => this.accessToken ? this.$store.dispatch('fetchUserDetails') : '')
     .then(() => this.$store.dispatch('fetchShippingRegions'))
     .then(() => this.asyncDataStatusFetch())

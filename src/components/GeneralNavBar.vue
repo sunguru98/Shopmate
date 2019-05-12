@@ -5,7 +5,7 @@
         <router-link :to="{name: 'Signin'}" class="primary-color">Sign in</router-link> or <router-link :to="{name: 'Register'}" class="primary-color">Register</router-link>
       </h3>
       <h3 class="general__navbar-greeting" v-if="isLoggedIn">
-        Hi! {{userName}} &nbsp;
+        Hi {{userName}} ! &nbsp;
         <router-link :to="{name: 'Profile'}" class="primary-color">My Profile</router-link>&nbsp;&nbsp;
         <router-link :to="{name: 'Logout'}" class="primary-color">Logout</router-link>
       </h3>
@@ -16,12 +16,12 @@
           <li><a href="">Help & Contact</a></li>
         </ul>
       </div>
-      <div class="general__navbar-cart">
+      <div class="general__navbar-cart" @click.prevent="showCart">
         <div class="general__navbar-cart--notifications" >
-          <a href="" style="display: flex" @click.prevent="showCart"><img src="@/assets/img/cart.svg" alt="Cart image" class="cart__image"></a>
+          <a href="" style="display: flex"><img src="@/assets/img/cart.svg" alt="Cart image" class="cart__image"></a>
           <span class="cart__badge" v-if="cartItems.length > 0">{{cartItems.length}}</span>
         </div>
-        <h3 class="general__navbar-cart--amount">Your bag: ${{cartItems.length === 0 ? '0.00' : totalAmount}}</h3>
+        <h3 style="cursor: pointer" class="general__navbar-cart--amount">Your bag: ${{cartItems.length === 0 ? '0.00' : totalAmount}}</h3>
       </div>
     </div>
   </nav>

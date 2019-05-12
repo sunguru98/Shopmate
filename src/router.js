@@ -4,6 +4,11 @@ import store from '@/store/index'
 import Home from '@/pages/PageHome.vue'
 import Authorize from '@/pages/PageAuthorize.vue'
 import ProductDetail from '@/pages/PageProductDetail.vue'
+import Delivery from '@/pages/PageDelivery.vue'
+import Confirmation from '@/pages/PageConfirmation.vue'
+import Payment from '@/pages/PagePayment.vue'
+import Success from '@/pages/PageSuccess.vue'
+import Failure from '@/pages/PageFailure.vue'
 import Logout from '@/components/LogoutComponent.vue'
 import Profile from '@/pages/PageProfile.vue'
 
@@ -62,6 +67,51 @@ const router = new Router({
       component: Profile,
       meta: {
         title: 'Shopmate - Profile',
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/checkout/delivery',
+      name: 'Delivery',
+      component: Delivery,
+      meta: {
+        title: 'Shopmate - Delivery',
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/checkout/confirmation',
+      name: 'Confirmation',
+      component: Confirmation,
+      meta: {
+        title: 'Shopmate - Confirmation',
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/checkout/paymentinfo',
+      name: 'Payment',
+      component: Payment,
+      meta: {
+        title: 'Shopmate - Payment',
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/checkout/success',
+      name: 'Success',
+      component: Success,
+      meta: {
+        title: 'Shopmate - Success',
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/checkout/failure',
+      name: 'Failure',
+      component: Failure,
+      meta: {
+        title: 'Shopmate - Failure',
         requiresAuth: true
       }
     }

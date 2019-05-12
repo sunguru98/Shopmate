@@ -46,8 +46,10 @@ export default {
           this.$store.dispatch('updateUserCredentials', {
             name: this.userName,
             email: this.userEmail,
-            password: this.newCPassword
+            password: this.newPassword
           })
+          .then(response => this.$router.push({ name: 'Signin' }))
+          .catch(err => this.errorMessage = err.response.data.error.message)
         } else {
           this.errorMessage = 'Passwords do not match. Please try again'
         }
