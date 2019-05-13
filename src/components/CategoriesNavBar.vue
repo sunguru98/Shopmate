@@ -10,7 +10,7 @@
         <input @keypress.enter="searchProducts" type="text" placeholder="search here (press enter)" v-model="searchQuery">
         <a @click.prevent="searchQuery=''" class="close"><img src="@/assets/img/close.svg" alt="Close icon"></a>
       </div>
-      <div class="categories__navbar-cart--notifications">
+      <div class="categories__navbar-cart--notifications" v-if="!this.$route.path.includes('/checkout')">
         <a href="" style="display: flex" @click.prevent="showCart"><img src="@/assets/img/cartwhite.svg" alt="Cart image" class="cart__image"></a>
         <span class="cart__badge" v-if="cartItems.length > 0">{{cartItems.length}}</span>
       </div>

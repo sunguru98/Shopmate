@@ -1,25 +1,25 @@
 <template>
-  <div class="checkout-container container shadowed margin-top-25 margin-bottom-5">
+  <div v-if="asyncDataStatus_ready" class="checkout-container container shadowed margin-top-25 margin-bottom-5">
     <div class="delivery-info-container">
       <h2 class="delivery-info-container--title">Checkout</h2>
       <CheckOutProgress :stepNumber=1 />
       <form class="delivery-info-container--personalform">
         <div class="form__left-side">
           <label for="fname">First name *</label>
-          <input :value="userDetails.name.split(' ')[0]" type="text" name="fname" id="fname" tabindex='1' required>
+          <input v-model="userDetailsObj.fName" type="text" name="fname" id="fname" tabindex='1' required>
           <label for="address">Address *</label>
-          <input :value="userDetails.address_1" type="text" name="address" id="address" tabindex='3' required>
+          <input v-model="userDetailsObj.address" type="text" name="address" id="address" tabindex='3' required>
           <label for="state">Country *</label>
-          <input :value="userDetails.country" type="text" name="state" id="state" tabindex='5' required>
+          <input v-model="userDetailsObj.country" type="text" name="state" id="state" tabindex='5' required>
           <label for="country" style="color: #000; display: inline-block">Region * &nbsp;<span class="primary-color specific__fontstyle">{{userDetails.region}}</span></label>
         </div>
         <div class="form__right-side">
           <label for="lname">Last name *</label>
-          <input :value="userDetails.name.split(' ')[1]" type="text" name="lname" id="lname" tabindex='2' required>
+          <input v-model="userDetailsObj.lName" type="text" name="lname" id="lname" tabindex='2' required>
           <label for="city">City *</label>
-          <input :value="userDetails.city" type="text" name="city" id="city" tabindex='4' required>
+          <input v-model="userDetailsObj.city" type="text" name="city" id="city" tabindex='4' required>
           <label for="pincode">ZIP code *</label>
-          <input :value="userDetails.postal_code" type="text" name="pincode" id="pincode" tabindex='6' required>
+          <input v-model="userDetailsObj.postalCode" type="text" name="pincode" id="pincode" tabindex='6' required>
         </div>
       </form>
       <hr>
@@ -31,7 +31,7 @@
       </div>
       <form class="delivery-info-container--deliveryform">
         <div class="deliveryoption" :key="shippingCost.shipping_id" v-for="shippingCost in shippingCosts">
-          <input :value="parseFloat(shippingCost.shipping_cost)" v-model="deliveryCost" type="radio" name="delivery" :id="'opt'+shippingCost.shipping_id" required>
+          <input :value="shippingCost.shipping_id" v-model="userDetailsObj.deliveryId" type="radio" name="delivery" :id="'opt'+shippingCost.shipping_id" required>
           <label :for="'opt'+shippingCost.shipping_id">
             <h3>{{shippingCost.shipping_type.split(' (')[0]}}: <span>({{shippingCost.shipping_type.split(' (')[1]}}</span></h3>
           </label>
@@ -46,15 +46,25 @@
 </template>
 
 <script>
+import asyncDataStatus from '@/mixins/asyncDataStatus'
 import CheckOutProgress from '@/components/CheckOutProgress.vue'
 import {mapState} from 'vuex'
 export default {
+  mixins: [asyncDataStatus],
   components: {
     CheckOutProgress
   },
   data () {
     return {
-      deliveryCost: '',
+      userDetailsObj: {
+        fName: '',
+        lName: '',
+        address_1: '',
+        city: '',
+        country: '',
+        postalCode: '',
+        deliveryId: ''
+      }, 
       errorMessage: null
     }
   },
@@ -66,13 +76,23 @@ export default {
   },
   created () {
     this.$store.dispatch('fetchShippingCosts')
-    .then(() => this.$emit('pageReady'))
+    .then(() => {
+      this.userDetailsObj.fName = this.userDetails.name.split(' ')[0]
+      this.userDetailsObj.lName = this.userDetails.name.split(' ')[1]
+      this.userDetailsObj.address = this.userDetails.address_1,
+      this.userDetailsObj.city = this.userDetails.city,
+      this.userDetailsObj.country = this.userDetails.country,
+      this.userDetailsObj.postalCode = this.userDetails.postal_code
+      this.asyncDataStatusFetch()
+    })
   },
   methods: {
     selectShipCosts () {
       if(this.deliveryCost === ''){
         this.errorMessage = 'Please select a shipping method'
       } else {
+        Event.$emit('userDetailsConfirmation', this.userDetailsObj)
+        sessionStorage.setItem('shippingCostId', this.userDetailsObj.deliveryId)
         this.$router.push({name: 'Confirmation'})
       }
     }

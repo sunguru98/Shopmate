@@ -76,7 +76,8 @@ const router = new Router({
       component: Delivery,
       meta: {
         title: 'Shopmate - Delivery',
-        requiresAuth: true
+        requiresAuth: true,
+        redirectPageAfterReachingPayment: true
       }
     },
     {
@@ -85,7 +86,8 @@ const router = new Router({
       component: Confirmation,
       meta: {
         title: 'Shopmate - Confirmation',
-        requiresAuth: true
+        requiresAuth: true,
+        redirectPageAfterReachingPayment: true
       }
     },
     {
@@ -121,7 +123,17 @@ router.beforeEach((to, from, next) => {
   document.title = to.meta.title
   if (to.matched.some(route => route.meta.requiresAuth)) {
     if (store.getters.isLoggedIn) {
-      next()
+      if (to.matched.some(route => route.meta.redirectPageAfterReachingPayment)) {
+        if (store.state.orderId === null) {
+          console.log('It doesnt have order id')
+          next()
+        } else {
+          console.log('It has order id')
+          next({ name: 'Payment' })
+        }
+      } else {
+        next()
+      }
     } else {
       next({ name: 'Signin' })
       document.title = 'Shopmate - Signin'

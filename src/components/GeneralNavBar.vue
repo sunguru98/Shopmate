@@ -16,7 +16,7 @@
           <li><a href="">Help & Contact</a></li>
         </ul>
       </div>
-      <div class="general__navbar-cart" @click.prevent="showCart">
+      <div class="general__navbar-cart" @click.prevent="showCart" v-if="!this.$route.path.includes('/checkout')">
         <div class="general__navbar-cart--notifications" >
           <a href="" style="display: flex"><img src="@/assets/img/cart.svg" alt="Cart image" class="cart__image"></a>
           <span class="cart__badge" v-if="cartItems.length > 0">{{cartItems.length}}</span>

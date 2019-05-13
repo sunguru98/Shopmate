@@ -24,7 +24,9 @@ export default new Vuex.Store({
     departments: {},
     imagesEndpoint: `https://backendapi.turing.com/images/products`,
     shippingRegions: [],
-    shippingCosts: []
+    shippingCosts: [],
+    orderId: $cookies.get('orderId') || null,
+    amountAfterShipping: sessionStorage.getItem('amountToBePaid') || null
   },
   getters: {
     getShoppingCartItems: state => state.shoppingCartItems,
@@ -195,6 +197,17 @@ export default new Vuex.Store({
     },
 
     // POST RELATED ACTIONS
+    async addAndReceiveOrderId ({ state, commit }, orderObj) {
+      const response = await axios({
+        method: 'POST',
+        data: orderObj,
+        headers: { 'user-key': state.accessToken || $cookies.get('accessToken') },
+        url: `${state.endpointAddress}/orders`
+      })
+      $cookies.set('orderId', response.data.orderId)
+      commit('setOrderId', response.data.orderId)
+    },
+
     async addReview ({ state, commit, dispatch }, { product_id, review, rating }) {
       let date = Date.now()
       let reviewObject = { created_on: date, review, rating, name: state.userDetails.name }
@@ -295,6 +308,12 @@ export default new Vuex.Store({
   mutations: {
     addNewReview (state, reviewObj) {
       Vue.set(state.reviews, state.reviews.length, reviewObj)
+    },
+    setAmountAfterShipping (state, amount) {
+      state.amountAfterShipping = amount
+    },
+    setOrderId (state, orderId) {
+      state.orderId = orderId
     },
     setShippingRegions (state, shippingRegions) {
       state.shippingRegions = shippingRegions
