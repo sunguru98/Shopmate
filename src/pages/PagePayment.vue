@@ -24,7 +24,7 @@
       </div>
     </div>
     <!-- Copied styles from delivery.html BE AWARE !!-->
-    <form class="delivery-info-container--personalform">
+    <!-- <form class="delivery-info-container--personalform">
       <div class="form__left-side">
         <label for="fname">Card number</label>
         <input type="text" name="fname" id="fname" tabindex='1' placeholder="**** **** **** ****">
@@ -47,7 +47,8 @@
           number.
         </p>
       </div>
-    </form>
+    </form> -->
+    <StripePayment />
     <!-- End of warning -->
     <div class="delivery-buttons-container">
       <form action="@/assets/delivery.html">
@@ -61,12 +62,13 @@
 </template>
 
 <script>
+import StripePayment from '@/components/StripePaymentComponent'
 import asyncDataStatus from '@/mixins/asyncDataStatus'
 import CheckOutProgress from '@/components/CheckOutProgress'
 export default {
   mixins: [asyncDataStatus],
   components: {
-    CheckOutProgress
+    CheckOutProgress, StripePayment
   },
   computed: {
     totalAmount () {
