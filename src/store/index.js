@@ -25,7 +25,7 @@ export default new Vuex.Store({
     imagesEndpoint: `https://backendapi.turing.com/images/products`,
     shippingRegions: [],
     shippingCosts: [],
-    orderId: $cookies.get('orderId') || null,
+    orderId: parseInt($cookies.get('orderId')) || null,
     amountAfterShipping: sessionStorage.getItem('amountToBePaid') || null
   },
   getters: {
@@ -87,6 +87,25 @@ export default new Vuex.Store({
     },
 
     // All GET Methods
+    async fetchStripeToken ({ commit, state }, { cardObj, stripeInstance }) {
+      commit('setLoadingState', true)
+      const { token, error } = await stripeInstance.createToken(cardObj)
+      if (error) {
+        // Inform the customer that there was an error.
+        const errorElement = document.getElementById('card-errors')
+        errorElement.textContent = error.message
+      } else {
+        let date = Date.now()
+        dispatchEvent('recieveChargeFromServer', {
+          stripeToken: token,
+          order_id: state.orderId,
+          descripton: `Purchase items at ${date} for ${state.amountAfterShipping}`,
+          amount: parseInt(state.amountAfterShipping.replace('.', ''))
+        })
+        commit('setLoadingState', false)
+        console.log(token)
+      }
+    },
     async fetchCartId ({ commit, state }) {
       const response = await axios.get(`${state.endpointAddress}/shoppingCart/generateUniqueId`)
       commit('setCartId', response.data.cart_id)

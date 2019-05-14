@@ -1,6 +1,6 @@
 <template>
   <div class="" style="padding: 0 8rem 10rem 8rem">
-    <form style="position: relative" @submit.prevent="createToken(cardObj)" action="/charge" method="post" id="payment-form">
+    <form style="position: relative" @submit.prevent="createToken" action="/charge" method="post" id="payment-form">
       <div class="form-row">
         <label for="card-element">
           Credit or debit card
@@ -20,14 +20,13 @@
 
 <script>
 const stripe = Stripe('pk_test_NcwpaplBCuTL6I0THD44heRe')
-const elements = stripe.elements({
-  
-})
+const elements = stripe.elements()
 const style = {
   base: {
     // Add your base input styles here. For example:
     fontSize: '16px',
-    color: "#32325d",
+    color: "#000",
+    fontFamily: 'Montserrat, sans-serif'
   },
 }
 
@@ -39,7 +38,7 @@ export default {
   },
   mounted () {
     // Create an instance of the card Element.
-    const card = elements.create('card', {style})
+    const card = elements.create('card', { style, hidePostalCode: true })
     this.cardObj = card
     // Add an instance of the card Element into the `card-element` <div>.
     card.mount('#card-element')
@@ -53,26 +52,11 @@ export default {
     })
   },
   methods: {
-    async createToken (card) {
-      const {token, error} = await stripe.createToken(card)
-      console.log(token)
-      if (error) {
-        // Inform the customer that there was an error.
-        const errorElement = document.getElementById('card-errors')
-        errorElement.textContent = error.message
-      } else {
-        // Send the token to your server.
-        this.stripeTokenHandler(token)
-      }
-    },
-    stripeTokenHandler (token) {
-      // Insert the token ID into the form so it gets submitted to the server
-      const form = document.getElementById('payment-form')
-      const hiddenInput = document.createElement('input')
-      hiddenInput.setAttribute('type', 'hidden')
-      hiddenInput.setAttribute('name', 'stripeToken')
-      hiddenInput.setAttribute('value', token.id)
-      form.appendChild(hiddenInput)
+    createToken () {
+      this.$store.dispatch('fetchStripeToken', {
+        cardObj: this.cardObj,
+        stripeInstance: stripe
+      })
     }
   }
 }
@@ -83,6 +67,10 @@ export default {
   * The CSS shown here will not be introduced in the Quickstart guide, but shows
   * how you can use CSS to style your Element's container.
   */
+  #card-errors {
+    color: #f62f5e;
+    font-weight: 700;
+  }
   #shape{
     margin-top: 3px;
   }
@@ -109,10 +97,14 @@ export default {
   }
 
   .StripeElement--invalid {
-    border-color: #fa755a;
+    border-color: #f62f5e;
   }
 
   .StripeElement--webkit-autofill {
     background-color: #fefde5 !important;
+  }
+
+  .ElementsApp.is-invalid .Icon-fill {
+    fill: #f62f5e;
   }
 </style>
