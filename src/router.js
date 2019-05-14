@@ -7,8 +7,7 @@ import ProductDetail from '@/pages/PageProductDetail.vue'
 import Delivery from '@/pages/PageDelivery.vue'
 import Confirmation from '@/pages/PageConfirmation.vue'
 import Payment from '@/pages/PagePayment.vue'
-import Success from '@/pages/PageSuccess.vue'
-import Failure from '@/pages/PageFailure.vue'
+import Finish from '@/pages/PageFinal.vue'
 import Logout from '@/components/LogoutComponent.vue'
 import Profile from '@/pages/PageProfile.vue'
 
@@ -100,20 +99,11 @@ const router = new Router({
       }
     },
     {
-      path: '/checkout/success',
-      name: 'Success',
-      component: Success,
+      path: '/checkout/finish',
+      name: 'Finish',
+      component: Finish,
       meta: {
-        title: 'Shopmate - Success',
-        requiresAuth: true
-      }
-    },
-    {
-      path: '/checkout/failure',
-      name: 'Failure',
-      component: Failure,
-      meta: {
-        title: 'Shopmate - Failure',
+        title: 'Shopmate - Finish',
         requiresAuth: true
       }
     }

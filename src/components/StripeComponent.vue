@@ -12,7 +12,7 @@
         <!-- Used to display Element errors. -->
         <div id="card-errors" role="alert"></div>
       </div>
-      <router-link style="margin: 2.5rem 0; position: absolute; right: 20%" class="product__cart-btn btnghost" :to="{name: 'Home'}">Cancel</router-link>
+      <a @click="cancelPayment" style="margin: 2.5rem 0; position: absolute; right: 20%" class="product__cart-btn btnghost">Cancel</a>
       <button style="margin: 2.5rem 0; position: absolute; right: 0" class="product__cart-btn second">Submit Payment</button>
     </form>
   </div>
@@ -25,8 +25,9 @@ const style = {
   base: {
     // Add your base input styles here. For example:
     fontSize: '16px',
-    color: "#000",
-    fontFamily: 'Montserrat, sans-serif'
+    color: "#2e2e2e",
+    fontFamily: 'Montserrat, sans-serif',
+    fontWeight: 'bold'
   },
 }
 
@@ -38,7 +39,7 @@ export default {
   },
   mounted () {
     // Create an instance of the card Element.
-    const card = elements.create('card', { style, hidePostalCode: true })
+    const card = elements.create('card', { style: style, hidePostalCode: true })
     this.cardObj = card
     // Add an instance of the card Element into the `card-element` <div>.
     card.mount('#card-element')
@@ -57,6 +58,12 @@ export default {
         cardObj: this.cardObj,
         stripeInstance: stripe
       })
+      .then(() => this.$router.push({name: 'Finish'}))
+      .catch(err => console.log(err))
+    },
+    cancelPayment () {
+      this.$store.dispatch('cancelPayment')
+      this.$router.push({ name: 'Home' })
     }
   }
 }

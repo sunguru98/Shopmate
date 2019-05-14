@@ -26,7 +26,8 @@ export default new Vuex.Store({
     shippingRegions: [],
     shippingCosts: [],
     orderId: parseInt($cookies.get('orderId')) || null,
-    amountAfterShipping: sessionStorage.getItem('amountToBePaid') || null
+    amountAfterShipping: sessionStorage.getItem('amountToBePaid') || null,
+    stripeResponse: {}
   },
   getters: {
     getShoppingCartItems: state => state.shoppingCartItems,
@@ -80,15 +81,30 @@ export default new Vuex.Store({
     logOut ({ commit, dispatch }) {
       console.log('Called')
       $cookies.remove('accessToken')
+      $cookies.remove('orderId')
       localStorage.removeItem('cartId')
       commit('setShoppingCartItems', [])
       commit('setAccessToken', null)
       dispatch('fetchCartId')
     },
 
+    cancelPayment () {
+      $cookies.remove('orderId')
+    },
+
+    clearData ({ commit }) {
+      sessionStorage.removeItem('amountToBePaid')
+      commit('setAmountAfterShipping', null)
+      sessionStorage.removeItem('shippingCostId')
+      commit('setShoppingCartItems', [])
+      if ($cookies.isKey('orderId')) {
+        $cookies.remove('orderId')
+      }
+      commit('setOrderId', null)
+    },
+
     // All GET Methods
-    async fetchStripeToken ({ commit, state }, { cardObj, stripeInstance }) {
-      commit('setLoadingState', true)
+    async fetchStripeToken ({ commit, state, dispatch }, { cardObj, stripeInstance }) {
       const { token, error } = await stripeInstance.createToken(cardObj)
       if (error) {
         // Inform the customer that there was an error.
@@ -96,18 +112,19 @@ export default new Vuex.Store({
         errorElement.textContent = error.message
       } else {
         let date = Date.now()
-        dispatchEvent('recieveChargeFromServer', {
-          stripeToken: token,
+        let chargeObj = {
+          stripeToken: token.id,
           order_id: state.orderId,
-          descripton: `Purchase items at ${date} for ${state.amountAfterShipping}`,
+          descripton: `Purchased items at ${date} for ${state.amountAfterShipping}`,
           amount: parseInt(state.amountAfterShipping.replace('.', ''))
-        })
-        commit('setLoadingState', false)
-        console.log(token)
+        }
+        dispatch('recieveChargeFromServer', { ...chargeObj })
       }
     },
+
     async fetchCartId ({ commit, state }) {
       const response = await axios.get(`${state.endpointAddress}/shoppingCart/generateUniqueId`)
+      console.log(response)
       commit('setCartId', response.data.cart_id)
     },
 
@@ -281,6 +298,15 @@ export default new Vuex.Store({
       console.log(response)
     },
 
+    async recieveChargeFromServer ({ state, commit }, chargeObj) {
+      console.log('Entered')
+      commit('setLoadingState', true)
+      const response = await axios.post(`${state.endpointAddress}/stripe/charge`, chargeObj)
+      commit('setLoadingState', false)
+      commit('setStripeResponse', { ...response.data })
+      return response.data
+    },
+
     // DELETE RELATED ACTIONS
     async removeShoppingCartItem ({ state, commit }, cartItemId) {
       await axios.delete(`${state.endpointAddress}/shoppingCart/removeProduct/${cartItemId}`)
@@ -327,6 +353,9 @@ export default new Vuex.Store({
   mutations: {
     addNewReview (state, reviewObj) {
       Vue.set(state.reviews, state.reviews.length, reviewObj)
+    },
+    setStripeResponse (state, stripeObj) {
+      state.stripeResponse = stripeObj
     },
     setAmountAfterShipping (state, amount) {
       state.amountAfterShipping = amount
