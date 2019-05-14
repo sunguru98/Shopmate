@@ -76,6 +76,7 @@ const router = new Router({
       meta: {
         title: 'Shopmate - Delivery',
         requiresAuth: true,
+        requiresUserDetails: true,
         redirectPageAfterReachingPayment: true
       }
     },
@@ -86,15 +87,18 @@ const router = new Router({
       meta: {
         title: 'Shopmate - Confirmation',
         requiresAuth: true,
-        redirectPageAfterReachingPayment: true
+        redirectPageAfterReachingPayment: true,
+        requiresUserDetails: true
       }
     },
     {
-      path: '/checkout/paymentinfo',
+      path: '/checkout/payment',
       name: 'Payment',
       component: Payment,
       meta: {
         title: 'Shopmate - Payment',
+        requiresUserDetails: true,
+        requiresOrderId: true,
         requiresAuth: true
       }
     },
@@ -104,22 +108,33 @@ const router = new Router({
       component: Finish,
       meta: {
         title: 'Shopmate - Finish',
-        requiresAuth: true
+        requiresAuth: true,
+        requiresStripeResponse: true
       }
     }
   ]
 })
 router.beforeEach((to, from, next) => {
   document.title = to.meta.title
+  // Login related guards
   if (to.matched.some(route => route.meta.requiresAuth)) {
     if (store.getters.isLoggedIn) {
+      // If order id is generated then we shouldnt go back, since it causes errors
       if (to.matched.some(route => route.meta.redirectPageAfterReachingPayment)) {
-        if (store.state.orderId === null) {
-          console.log('It doesnt have order id')
-          next()
+        !store.state.orderId ? next() : next({ name: 'Payment' })
+      } else if (to.matched.some(route => route.meta.requiresOrderId)) {
+        !store.state.orderId ? next({ name: 'Home' }) : next()
+      } else {
+        next()
+      }
+      // If the user doesnt fill out the details then reminding him to update the address
+      if (to.matched.some(route => route.meta.requiresUserDetails)) {
+        console.log(store.getters.hasAddress)
+        if (!store.getters.hasAddress) {
+          console.log('User details are not filled')
+          next({ name: 'Profile' })
         } else {
-          console.log('It has order id')
-          next({ name: 'Payment' })
+          next()
         }
       } else {
         next()

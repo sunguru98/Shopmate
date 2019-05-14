@@ -71,6 +71,7 @@ export default {
     }
   },
   created () {
+    this.errorMessage = (!this.userDetails.address_1 || !this.userDetails.country || !this.userDetails.city || this.userDetails.shipping_region_id === 1) ? 'Please update your address' : null
     this.userAddressObj.address_1 = this.userDetails.address_1
     this.userAddressObj.city = this.userDetails.city
     this.userAddressObj.country = this.userDetails.country

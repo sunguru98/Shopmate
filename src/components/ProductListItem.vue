@@ -43,11 +43,15 @@ export default {
   computed: {
     ...mapGetters({
       cartId: 'getCartId'
-    }),
+    })
   },
   methods: {
     addItemToCart () {
-      this.$store.dispatch('addItemToCart', {...this.cartObj, attributes: JSON.stringify(this.cartObj.attributes)})
+      this.$store.dispatch('addItemToCart', 
+      {
+        ...this.cartObj, 
+        attributes: JSON.stringify(this.cartObj.attributes)
+      })
     }
   },
   created () {

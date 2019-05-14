@@ -15,7 +15,7 @@
       <p style="margin-bottom: 2rem" class="success-container__successmessage">
         Your can view your receipt <a target="_blank" :href="stripeResponse.receipt_url" class="primary-color">here</a>, <br>
       </p>
-      <router-link style="padding: 2rem 0" :to="{name: 'Home'}" class="success-container__gohomebutton">Back to shop</router-link>
+      <router-link @click="store.dispatch('fetchCartId')" style="padding: 2rem 0" :to="{name: 'Home'}" class="success-container__gohomebutton">Back to shop</router-link>
     </div>
   </div>
 </template>

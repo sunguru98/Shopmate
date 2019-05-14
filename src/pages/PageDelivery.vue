@@ -77,8 +77,8 @@ export default {
   created () {
     this.$store.dispatch('fetchShippingCosts')
     .then(() => {
-      this.userDetailsObj.fName = this.userDetails.name.split(' ')[0]
-      this.userDetailsObj.lName = this.userDetails.name.split(' ')[1]
+      this.userDetailsObj.fName = this.userDetails.name.split(' ').length > 0 ? this.userDetails.name.split(' ')[0] : this.userDetails.name
+      this.userDetailsObj.lName = this.userDetails.name.split(' ').length > 0 ? this.userDetails.name.split(' ')[1] : ''
       this.userDetailsObj.address = this.userDetails.address_1,
       this.userDetailsObj.city = this.userDetails.city,
       this.userDetailsObj.country = this.userDetails.country,

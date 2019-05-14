@@ -27,7 +27,7 @@ export default new Vuex.Store({
     shippingCosts: [],
     orderId: parseInt($cookies.get('orderId')) || null,
     amountAfterShipping: sessionStorage.getItem('amountToBePaid') || null,
-    stripeResponse: {}
+    stripeResponse: null
   },
   getters: {
     getShoppingCartItems: state => state.shoppingCartItems,
@@ -46,7 +46,13 @@ export default new Vuex.Store({
       return parseFloat(Math.round(total * 100) / 100).toFixed(2)
     },
     isLoggedIn: state => state.accessToken !== null,
-    fetchFirstName: state => Object.keys(state.userDetails).length > 0 ? state.userDetails.name.split(' ')[0] : ''
+    hasAddress: state => state.userDetails.address_1 !== null || state.userDetails.city !== null || state.userDetails.country !== null,
+    fetchFirstName: state => {
+      if (Object.keys(state.userDetails).length > 0) {
+        return state.userDetails.name.split(' ').length > 0 ? state.userDetails.name.split(' ')[0] : state.userDetails.name
+      }
+      return ''
+    }
   },
   actions: {
     // Common functions
@@ -124,7 +130,6 @@ export default new Vuex.Store({
 
     async fetchCartId ({ commit, state }) {
       const response = await axios.get(`${state.endpointAddress}/shoppingCart/generateUniqueId`)
-      console.log(response)
       commit('setCartId', response.data.cart_id)
     },
 
@@ -302,8 +307,8 @@ export default new Vuex.Store({
       console.log('Entered')
       commit('setLoadingState', true)
       const response = await axios.post(`${state.endpointAddress}/stripe/charge`, chargeObj)
-      commit('setLoadingState', false)
       commit('setStripeResponse', { ...response.data })
+      commit('setLoadingState', false)
       return response.data
     },
 

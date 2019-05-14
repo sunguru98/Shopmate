@@ -6,14 +6,15 @@ export default {
         product_id: null,
         attributes: {
           color: null,
-          size: null
+          size: 'Size'
         }
       }
     }
   },
   computed: {
     inputReceived () {
-      return this.cartObj.attributes.size !== null && this.cartObj.attributes.color !== null
+      // eslint-disable-next-line quotes
+      return this.cartObj.attributes.size !== 'Size' && this.cartObj.attributes.color !== null
     }
   },
   created () {
