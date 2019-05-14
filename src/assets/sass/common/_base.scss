@@ -112,6 +112,8 @@ input[type='text']::placeholder {
   background: $primary-color;
 }
 .btnghost{
+  border: 2px solid $primary-color;
+  font-weight: 700;
   background: $white-color !important;
   color: $primary-color !important;
 }

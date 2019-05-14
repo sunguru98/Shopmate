@@ -63,7 +63,7 @@ export default {
         city: '',
         country: '',
         postalCode: '',
-        deliveryId: ''
+        deliveryId: null
       }, 
       errorMessage: null
     }
@@ -88,7 +88,7 @@ export default {
   },
   methods: {
     selectShipCosts () {
-      if(this.deliveryCost === ''){
+      if(!this.userDetailsObj.deliveryId){
         this.errorMessage = 'Please select a shipping method'
       } else {
         Event.$emit('userDetailsConfirmation', this.userDetailsObj)

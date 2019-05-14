@@ -11,20 +11,12 @@
           <img src="@/assets/img/mastercard.svg" alt="Mastercard image" class="card__images--mastercard">
         </div>
         <div class="card__amount">
-          <input type="radio" name="method" id="card" checked>
           <label for="card">Pay ${{totalAmount}} with credit card</label>
-        </div>
-      </div>
-      <div class="payment-choices-container--paypal">
-        <img src="@/assets/img/paypal.svg" alt="Paypal image" class="paypal__image">
-        <div class="paypal__amount">
-          <input type="radio" name="method" id="paypal">
-          <label for="paypal">Pay ${{totalAmount}} with PayPal</label>
         </div>
       </div>
     </div>
     <!-- Copied styles from delivery.html BE AWARE !!-->
-    <form class="delivery-info-container--personalform">
+    <!-- <form class="delivery-info-container--personalform">
       <div class="form__left-side">
         <label for="fname">Card number</label>
         <input type="text" name="fname" id="fname" tabindex='1' placeholder="**** **** **** ****">
@@ -47,26 +39,21 @@
           number.
         </p>
       </div>
-    </form>
+    </form> -->
     <!-- End of warning -->
-    <div class="delivery-buttons-container">
-      <form action="@/assets/delivery.html">
-        <input type="submit" class="product__cart-btn btnghost" value="Back" />
-      </form>
-      <form action="payment.html">
-        <input type="submit" class="product__cart-btn second" value="Pay" />
-      </form>
-    </div>
+    <!-- <StripePayment /> -->
+    <Stripe />
   </div>
 </template>
 
 <script>
+import Stripe from '@/components/StripeNormalComponent'
 import asyncDataStatus from '@/mixins/asyncDataStatus'
 import CheckOutProgress from '@/components/CheckOutProgress'
 export default {
   mixins: [asyncDataStatus],
   components: {
-    CheckOutProgress
+    CheckOutProgress, Stripe
   },
   computed: {
     totalAmount () {
