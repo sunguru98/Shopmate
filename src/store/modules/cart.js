@@ -31,12 +31,16 @@ export default {
     async fetchCartId ({ commit, state, rootState }) {
       const response = await axios.get(`${rootState.endpointAddress}/shoppingCart/generateUniqueId`)
       commit('setCartId', response.data.cart_id)
+      return response.data.cart_id
     },
 
     async fetchProductsOnCart ({ commit, state, rootState }) {
       const response = await axios.get(`${rootState.endpointAddress}/shoppingcart/${state.cartId}`)
-      response.data[0].forEach(item => commit('addCartItemImage', { itemId: item.item_id, itemImage: item.image }))
-      commit('setShoppingCartItems', response.data[0])
+      response.data.forEach(item => {
+        commit('addCartItemImage', { itemId: item.item_id, itemImage: item.image })
+      })
+      commit('setShoppingCartItems', response.data)
+      console.log('Shopping Cart Items', state.shoppingCartItems)
     },
 
     async addItemToCart ({ state, commit, rootState }, cartObj) {

@@ -3,7 +3,7 @@
     <div class="filters-area__infos">
       <h3 class="filters-area__main-title">Filter {{count}} {{count > 1 ? 'items' : 'item'}}</h3>
       <span class="filters-area__department" v-if="Object.keys(selectedDepartment).length > 0">
-        <a @click="$store.dispatch('fetchProducts'); selectedDepartment={}" class="close" style="margin-right: 3px">
+        <a @click="$store.dispatch('fetchProducts'); $emit('normalMode'); selectedDepartment={}" class="close" style="margin-right: 3px">
           <img src="@/assets/img/closeblack.svg" alt="Close icon">
         </a>&nbsp;Department:
         <span class="primary-color">{{selectedDepartment.name}}</span>
@@ -59,12 +59,14 @@ export default {
     selectCurrentDepartment (depObj) {
       this.selectedCategory = {}
       this.selectedDepartment = depObj;
-      this.$store.dispatch('fetchProductsByDepartment', this.selectedDepartment.department_id) 
+      this.$store.dispatch('fetchProductsByDepartment', this.selectedDepartment.department_id)
+      this.$emit('departmentMode', this.selectedDepartment.department_id)
     },
     selectCurrentCategory (catObj) {
       this.selectedDepartment = {}
       this.selectedCategory = catObj;
-      this.$store.dispatch('fetchProductsByCategory', this.selectedCategory.category_id) 
+      this.$store.dispatch('fetchProductsByCategory', this.selectedCategory.category_id)
+      this.$emit('categoryMode', this.selectedCategory.category_id)
     }
   },
   created () {

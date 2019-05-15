@@ -61,6 +61,7 @@
       transition: color .4s;
     }
     li:hover{
+      cursor: pointer;
       color: $primary-color;
     }
   }

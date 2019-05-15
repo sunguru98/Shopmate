@@ -37,19 +37,19 @@ export default {
       dispatch('fetchCartId')
     },
 
-    async signInUser ({ state, commit, dispatch, rootState }, { email, password }) {
+    async signInUser ({ commit, dispatch, rootState }, { email, password }) {
       let response = await axios.post(`${rootState.endpointAddress}/customers/login`, { email, password })
       VueCookies.set('accessToken', response.data.accessToken, response.data.expires_in)
       if (!rootState.cart.cartId) {
         dispatch('fetchCartId')
       }
-      localStorage.setItem('cartId', state.cartId)
+      localStorage.setItem('cartId', rootState.cart.cartId)
       commit('setAccessToken', response.data.accessToken)
       await dispatch('fetchUserDetails')
     },
 
-    async signInWithFacebook ({ state, commit }, accessToken) {
-      const response = await axios.post(`${state.endpointAddress}/customers/facebook`, { access_token: accessToken })
+    async signInWithFacebook ({ rootState, commit }, accessToken) {
+      const response = await axios.post(`${rootState.endpointAddress}/customers/facebook`, { access_token: accessToken })
       console.log(response)
     },
 
@@ -60,6 +60,7 @@ export default {
         url: `${rootState.endpointAddress}/customer`
       })
       commit('setUserDetails', { ...response.data })
+      console.log('User Details', state.userDetails)
     },
 
     async registerUser ({ state, commit, rootState }, { name, email, password }) {

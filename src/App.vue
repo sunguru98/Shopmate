@@ -33,7 +33,6 @@ export default {
     }
   },
   created () {
-    console.log('Hey')
     this.$router.beforeEach((to, from, next) => {
       this.revealPage = false
       next()
@@ -44,7 +43,10 @@ export default {
     .then(() => !this.$store.getters.isLoggedIn ? this.$store.dispatch('fetchCartId') : this.$store.dispatch('fetchProductsOnCart'))
     .then(() => this.accessToken ? this.$store.dispatch('fetchUserDetails') : '')
     .then(() => this.$store.dispatch('fetchShippingRegions'))
-    .then(() => this.asyncDataStatusFetch())
+    .then(() => {
+      console.log('Cart ID', this.$store.state.cart.cartId)
+      this.asyncDataStatusFetch()
+    })
   },
   components: {
     TheNavBar, ShoppingCart, Spinner

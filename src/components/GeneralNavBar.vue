@@ -18,7 +18,7 @@
       </div>
       <div class="general__navbar-cart" @click.prevent="showCart" v-if="!this.$route.path.includes('/checkout')">
         <div class="general__navbar-cart--notifications" >
-          <a href="" style="display: flex"><img src="@/assets/img/cart.svg" alt="Cart image" class="cart__image"></a>
+          <a href="" style="display: flex; cursor: pointer"><img src="@/assets/img/cart.svg" alt="Cart image" class="cart__image"></a>
           <span class="cart__badge" v-if="cartItems.length > 0">{{cartItems.length}}</span>
         </div>
         <h3 style="cursor: pointer" class="general__navbar-cart--amount">Your bag: ${{cartItems.length === 0 ? '0.00' : totalAmount}}</h3>

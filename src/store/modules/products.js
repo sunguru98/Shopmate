@@ -45,7 +45,7 @@ export default {
     },
 
     async fetchProducts ({ commit, state, dispatch, rootState }, page = 1) {
-      console.log('Entering')
+      console.log(page)
       commit('setLoadingState', true, { root: true })
       const limit = 15
       const response = await axios.get(rootState.endpointAddress + `/products?page=${page}&limit=${limit}`)
@@ -56,19 +56,21 @@ export default {
         })
     },
 
-    async fetchProductsByDepartment ({ commit, state, dispatch, rootState }, departmentId) {
-      commit('setLoadingState', true, { root: true })
-      const response = await axios.get(`${rootState.endpointAddress}/products/inDepartment/${departmentId}?limit=15`)
-      await dispatch('getAttributesForProducts', response)
-        .then(allProducts => {
-          commit('setProducts', allProducts)
-          commit('setLoadingState', false, { root: true })
-        })
+    async fetchProductsByDepartment ({ commit, state, dispatch, rootState }, object) {
+      console.log(object)
+      // commit('setLoadingState', true, { root: true })
+      // const response = await axios.get(`${rootState.endpointAddress}/products/inDepartment/${obj.id}?limit=15?page=${obj.pageNumber}`)
+      // await dispatch('getAttributesForProducts', response)
+      //   .then(allProducts => {
+      //     commit('setProducts', allProducts)
+      //     commit('setLoadingState', false, { root: true })
+      //   })
     },
 
-    async fetchProductsByCategory ({ commit, state, dispatch, rootState }, categoryId) {
+    async fetchProductsByCategory ({ commit, state, dispatch, rootState }, { id, pageNumber }) {
+      console.log(id, pageNumber)
       commit('setLoadingState', true, { root: true })
-      const response = await axios.get(`${rootState.endpointAddress}/products/inCategory/${categoryId}?limit=15`)
+      const response = await axios.get(`${rootState.endpointAddress}/products/inCategory/${id}?limit=15?page=${pageNumber}`)
       await dispatch('getAttributesForProducts', response)
         .then(allProducts => {
           commit('setProducts', allProducts)

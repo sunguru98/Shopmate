@@ -210,7 +210,7 @@ export default {
     }),
     ...mapState(['loadingState']),
     product() {
-      return this.$store.state.singleProduct;
+      return this.$store.state.products.singleProduct;
     },
     reviews() {
       return this.$store.getters.allReviews;
@@ -222,6 +222,7 @@ export default {
   created() {
     this.rating = 0;
     this.$store.dispatch("fetchProductsByID", this.id).then(() => {
+      console.log(this.product)
       this.cartObj.product_id = parseInt(this.id);
       this.$store.dispatch("fetchReviewsByProductID", this.id);
       (this.selectedImage = this.product.image), this.asyncDataStatusFetch();

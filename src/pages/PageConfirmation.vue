@@ -13,7 +13,7 @@
           <h3>Price</h3>
         </div>
         <ul class="confirmation-container__ordersummary--productslist">
-          <li class="confirmation-container__ordersummary--product" v-for="item in shoppingCartItems" :key="item.product_id">
+          <li class="confirmation-container__ordersummary--product" v-for="item in shoppingCartItems" :key="item.item_id">
             <span class="ordersummary-product__name">{{item.name}}</span>
             <span class="ordersummary-product__quantity">{{item.quantity}}</span>
             <h3 class="ordersummary-product__price primary-color">${{item.subtotal}}</h3>
@@ -73,10 +73,11 @@ export default {
   },
   methods: {
     moveToPayment () {
+      console.log('Clicked')
       sessionStorage.setItem('amountToBePaid', this.totalCost)
       this.$store.commit('setAmountAfterShipping', this.totalCost)
       this.$store.dispatch('addAndReceiveOrderId', {
-        cart_id: this.$store.state.cartId,
+        cart_id: this.$store.state.cart.cartId,
         shipping_id: sessionStorage.getItem('shippingCostId'),
         tax_id: 1
       })
@@ -85,7 +86,10 @@ export default {
     }
   },
   computed: {
-    ...mapState(['shoppingCartItems', 'shippingCosts']),
+    ...mapGetters({
+        shoppingCartItems: 'getShoppingCartItems', 
+        shippingCosts: 'allShippingCosts'
+      }),
     ...mapGetters(['cartTotalAmount']),
     shippingType () {
       return this.shippingCosts.find(cost => cost.shipping_id == this.shippingId).shipping_type
@@ -107,7 +111,7 @@ export default {
       })
       if(!this.userDetailsObj) {
         this.$store.dispatch('fetchUserDetails').then(() => {
-          this.userDetailsObj = this.$store.state.userDetails
+          this.userDetailsObj = this.$store.state.auth.userDetails
           this.asyncDataStatusFetch()
         })
       } else {

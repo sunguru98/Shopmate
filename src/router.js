@@ -121,15 +121,15 @@ router.beforeEach((to, from, next) => {
     if (store.getters.isLoggedIn) {
       // If order id is generated then we shouldnt go back, since it causes errors
       if (to.matched.some(route => route.meta.redirectPageAfterReachingPayment)) {
-        !store.state.orderId ? next() : next({ name: 'Payment' })
+        !store.state.payment.orderId ? next() : next({ name: 'Payment' })
       } else if (to.matched.some(route => route.meta.requiresOrderId)) {
-        !store.state.orderId ? next({ name: 'Home' }) : next()
+        !store.state.payment.orderId ? next({ name: 'Home' }) : next()
       } else {
         next()
       }
       // If the user doesnt fill out the details then reminding him to update the address
       if (to.matched.some(route => route.meta.requiresUserDetails)) {
-        console.log(store.getters.hasAddress)
+        console.log('Has Address', store.getters.hasAddress)
         if (!store.getters.hasAddress) {
           console.log('User details are not filled')
           next({ name: 'Profile' })

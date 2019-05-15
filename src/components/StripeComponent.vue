@@ -19,8 +19,7 @@
 </template>
 
 <script>
-const stripe = Stripe('pk_test_NcwpaplBCuTL6I0THD44heRe')
-const elements = stripe.elements()
+let stripe = Stripe('pk_test_NcwpaplBCuTL6I0THD44heRe')
 const style = {
   base: {
     // Add your base input styles here. For example:
@@ -38,8 +37,9 @@ export default {
     }
   },
   mounted () {
+    let elements = stripe.elements()
     // Create an instance of the card Element.
-    const card = elements.create('card', { style: style, hidePostalCode: true })
+    let card = elements.create('card', { style: style, hidePostalCode: true })
     this.cardObj = card
     // Add an instance of the card Element into the `card-element` <div>.
     card.mount('#card-element')

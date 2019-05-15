@@ -7,10 +7,12 @@ export default {
     stripeResponse: null
   },
   getters: {
+    getStripeResponse: state => state.stripeResponse
   },
   actions: {
-    cancelPayment () {
+    cancelPayment (context) {
       VueCookies.remove('orderId')
+      context.commit('setOrderId', null)
     },
 
     async fetchStripeToken ({ commit, state, dispatch }, { cardObj, stripeInstance }) {
@@ -49,7 +51,6 @@ export default {
       const response = await axios.post(`${rootState.endpointAddress}/stripe/charge`, chargeObj)
       commit('setStripeResponse', { ...response.data })
       commit('setLoadingState', false)
-      return response.data
     }
   },
   mutations: {

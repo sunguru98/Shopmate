@@ -72,7 +72,9 @@ export default {
     userDetails () {
       return this.$store.getters.getUserDetails
     },
-    ...mapState(['shippingCosts'])
+    shippingCosts () {
+      return this.$store.state.shipping.shippingCosts
+    }
   },
   created () {
     this.$store.dispatch('fetchShippingCosts')
