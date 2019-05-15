@@ -28,9 +28,12 @@ export default {
     ...mapGetters({
       departments: 'allDepartments',
     }),
-    ...mapState(['accessToken'])
+    accessToken () {
+      return this.$store.state.auth.accessToken
+    }
   },
   created () {
+    console.log('Hey')
     this.$router.beforeEach((to, from, next) => {
       this.revealPage = false
       next()

@@ -59,13 +59,10 @@ export default {
     changePageNumber (pageNumber) {
       this.currentPageNumber = pageNumber
       this.$store.dispatch('fetchProducts', this.currentPageNumber+1)
-    },
-    ...mapActions([
-      'fetchProducts'
-    ])
+    }
   },
   created () {
-    this.fetchProducts()
+    this.$store.dispatch('fetchProducts')
     .then(() => {
       this.asyncDataStatusFetch()
     })

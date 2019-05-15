@@ -48,10 +48,12 @@ export default {
     } 
   },
   computed: {
-    ...mapState([
-      'departments',
-      'categories'
-    ])
+    departments () {
+      return this.$store.state.departments.departments
+    },
+    categories () {
+      return this.$store.state.categories.categories
+    }
   },
   methods: {
     selectCurrentDepartment (depObj) {
