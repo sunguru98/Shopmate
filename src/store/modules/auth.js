@@ -34,6 +34,7 @@ export default {
       localStorage.removeItem('cartId')
       commit('setShoppingCartItems', [])
       commit('setAccessToken', null)
+      commit('setUserDetails', {})
       dispatch('fetchCartId')
     },
 

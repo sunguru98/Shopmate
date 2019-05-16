@@ -10,17 +10,12 @@
       <input v-model="password" type="password" name="password" id="suppassword" placeholder="Password">
       <input v-model="cpassword" type="password" name="repassword" id="suprepassword" placeholder="Confirm password">
       <input type="submit" value="Sign Up">
-      <FacebookLoginButton />
     </form>
   </div>
 </template>
 
 <script>
-import FacebookLoginButton from '@/components/auth/FacebookLoginButton.vue'
 export default {
-  components: {
-    FacebookLoginButton
-  },
   data () {
     return {
       email: '',
