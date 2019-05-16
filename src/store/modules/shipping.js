@@ -12,7 +12,6 @@ export default {
     async fetchShippingRegions ({ state, commit, rootState }) {
       const response = await axios.get(`${rootState.endpointAddress}/shipping/regions`)
       commit('setShippingRegions', response.data)
-      console.log('Shipping Regions', state.shippingRegions)
     },
 
     async fetchShippingCosts ({ state, commit, rootState }) {

@@ -44,7 +44,6 @@ export default {
     .then(() => this.accessToken ? this.$store.dispatch('fetchUserDetails') : '')
     .then(() => this.$store.dispatch('fetchShippingRegions'))
     .then(() => {
-      console.log('Cart ID', this.$store.state.cart.cartId)
       this.asyncDataStatusFetch()
     })
   },

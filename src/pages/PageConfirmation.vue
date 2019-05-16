@@ -73,7 +73,6 @@ export default {
   },
   methods: {
     moveToPayment () {
-      console.log('Clicked')
       sessionStorage.setItem('amountToBePaid', this.totalCost)
       this.$store.commit('setAmountAfterShipping', this.totalCost)
       this.$store.dispatch('addAndReceiveOrderId', {

@@ -40,7 +40,6 @@ export default {
         commit('addCartItemImage', { itemId: item.item_id, itemImage: item.image })
       })
       commit('setShoppingCartItems', response.data)
-      console.log('Shopping Cart Items', state.shoppingCartItems)
     },
 
     async addItemToCart ({ state, commit, rootState }, cartObj) {

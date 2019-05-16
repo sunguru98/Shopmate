@@ -28,7 +28,6 @@ export default {
   },
   actions: {
     logOut ({ commit, dispatch }) {
-      console.log('Called')
       VueCookies.remove('accessToken')
       VueCookies.remove('orderId')
       localStorage.removeItem('cartId')
@@ -45,14 +44,8 @@ export default {
         await dispatch('fetchCartId')
       }
       localStorage.setItem('cartId', rootState.cart.cartId)
-      console.log('Local storage set cart id', localStorage.getItem('cartId'))
       commit('setAccessToken', response.data.accessToken)
       await dispatch('fetchUserDetails')
-    },
-
-    async signInWithFacebook ({ rootState, commit }, accessToken) {
-      const response = await axios.post(`${rootState.endpointAddress}/customers/facebook`, { access_token: accessToken })
-      console.log(response)
     },
 
     async fetchUserDetails ({ state, commit, rootState }) {
@@ -62,17 +55,14 @@ export default {
         url: `${rootState.endpointAddress}/customer`
       })
       commit('setUserDetails', { ...response.data })
-      console.log('User Details', state.userDetails)
     },
 
     async registerUser ({ commit, dispatch, rootState }, { name, email, password }) {
       const response = await axios.post(`${rootState.endpointAddress}/customers`, { name, email, password })
-      console.log('User registered', response.data.customer)
       if (!rootState.cart.cartId) {
         await dispatch('fetchCartId')
       }
       localStorage.setItem('cartId', rootState.cart.cartId)
-      console.log('Local storage set cart id', localStorage.getItem('cartId'))
       VueCookies.set('accessToken', response.data.accessToken, response.data.expires_in)
       commit('setAccessToken', response.data.accessToken)
       commit('setUserDetails', { ...response.data.customer })
@@ -80,13 +70,12 @@ export default {
 
     async updateUserCredentials ({ state, commit, dispatch, rootState }, userObj) {
       commit('setLoadingState', true)
-      const response = await axios({
+      await axios({
         method: 'PUT',
         data: userObj,
         headers: { 'user-key': VueCookies.get('accessToken') },
         url: `${rootState.endpointAddress}/customer`
       })
-      console.log(response)
       dispatch('logOut')
       commit('setLoadingState', false)
     },
@@ -99,7 +88,6 @@ export default {
         headers: { 'user-key': VueCookies.get('accessToken') },
         url: `${rootState.endpointAddress}/customers/address`
       })
-      console.log(response)
       commit('setUserDetails', { ...response.data })
       commit('setLoadingState', false)
     }

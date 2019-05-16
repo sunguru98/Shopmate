@@ -57,18 +57,21 @@ export default {
   methods: {
     updateUserAddress () {
       this.userAddressObj.postalCode = parseInt(this.userAddressObj.postalCode)
-      console.log(typeof this.userAddressObj.postalCode, this.userAddressObj.postalCode)
       if (!isNaN(this.userAddressObj.postalCode)) {
-        this.$store.dispatch('updateUserAddress', {
-          address_1: this.userAddressObj.address_1,
-          city: this.userAddressObj.city,
-          region: this.currentShippingRegion,
-          postal_code: this.userAddressObj.postalCode,
-          country: this.userAddressObj.country,
-          shipping_region_id: this.userAddressObj.regionId
-        })
-        .then((response) => this.errorMessage = null)
-        .catch(err => this.errorMessage = err.response.data.error.message)
+        if (this.userAddressObj.regionId === 1) {
+          this.errorMessage = 'Please select your region'
+        } else {
+          this.$store.dispatch('updateUserAddress', {
+            address_1: this.userAddressObj.address_1,
+            city: this.userAddressObj.city,
+            region: this.currentShippingRegion,
+            postal_code: this.userAddressObj.postalCode,
+            country: this.userAddressObj.country,
+            shipping_region_id: this.userAddressObj.regionId
+          })
+          .then((response) => this.errorMessage = null)
+          .catch(err => this.errorMessage = err.response.data.error.message)
+        }
       } else {
         this.errorMessage = 'Please enter a valid postal code'
       }

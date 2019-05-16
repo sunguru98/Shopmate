@@ -60,7 +60,7 @@ export default {
         stripeInstance: stripe
       })
       .then(() => this.$router.push({name: 'Finish'}))
-      .catch(err => console.log(err))
+      .catch(err => alert(err))
     },
     cancelPayment () {
       this.$store.dispatch('cancelPayment')

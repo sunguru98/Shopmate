@@ -41,7 +41,6 @@ export default {
     },
 
     async receiveChargeFromServer ({ state, commit, rootState }) {
-      console.log('Entered')
       commit('setLoadingState', true)
       let date = Date.now()
       let chargeObj = {
@@ -53,7 +52,6 @@ export default {
       const response = await axios.post(`${rootState.endpointAddress}/stripe/charge`, chargeObj)
       commit('setStripeResponse', { ...response.data })
       commit('setLoadingState', false)
-      console.log('Stripe Response', state.stripeResponse)
     }
   },
   mutations: {

@@ -28,7 +28,6 @@ export default new Vuex.Store({
   },
   actions: {
     clearData ({ commit }) {
-      console.log('Clearing all data')
       sessionStorage.removeItem('stripeTokenId')
       sessionStorage.removeItem('amountToBePaid')
       commit('setAmountAfterShipping', null)

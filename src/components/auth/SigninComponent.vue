@@ -27,7 +27,7 @@ export default {
       this.$store.dispatch('signInUser', { email: this.email, password: this.password })
         .then(response => this.$router.push({name: 'Home'}))
         .catch(error => {
-          console.log(error.response.data.error.message)
+          alert(error.response.data.error.message)
           this.errorMessage = error.response.data.error.message
         })
     }

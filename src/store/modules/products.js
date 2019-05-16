@@ -45,7 +45,6 @@ export default {
     },
 
     async fetchProducts ({ commit, state, dispatch, rootState }, page = 1) {
-      console.log(page)
       commit('setLoadingState', true, { root: true })
       const limit = 15
       const response = await axios.get(rootState.endpointAddress + `/products?page=${page}&limit=${limit}`)
@@ -57,10 +56,8 @@ export default {
     },
 
     async fetchProductsByDepartment ({ commit, state, dispatch, rootState }, { id, pageNumber }) {
-      console.log(id, pageNumber)
       commit('setLoadingState', true, { root: true })
       const response = await axios.get(`${rootState.endpointAddress}/products/inDepartment/${id}?page=${pageNumber}&limit=15`)
-      console.log(response.data)
       await dispatch('getAttributesForProducts', response)
         .then(allProducts => {
           commit('setProducts', allProducts)
@@ -69,7 +66,6 @@ export default {
     },
 
     async fetchProductsByCategory ({ commit, state, dispatch, rootState }, { id, pageNumber }) {
-      console.log(id, pageNumber)
       commit('setLoadingState', true, { root: true })
       const response = await axios.get(`${rootState.endpointAddress}/products/inCategory/${id}?page=${pageNumber}&limit=15`)
       await dispatch('getAttributesForProducts', response)
