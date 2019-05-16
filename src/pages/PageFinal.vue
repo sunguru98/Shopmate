@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import Spinner from '@/components/AppLoadingComponent'
+import Spinner from '@/components/common/AppLoadingComponent'
 import asyncDataStatus from '@/mixins/asyncDataStatus'
 import CheckOutProgress from '@/components/common/CheckOutProgress'
 import {mapState} from 'vuex'

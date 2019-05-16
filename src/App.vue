@@ -13,9 +13,9 @@
 <script>
 import asyncDataStatus from '@/mixins/asyncDataStatus'
 import { mapGetters,mapState } from 'vuex'
-import Spinner from '@/components/AppLoadingComponent.vue'
-import TheNavBar from '@/components/TheHeader.vue'
-import ShoppingCart from '@/components/ShoppingCart.vue'
+import Spinner from '@/components/common/AppLoadingComponent.vue'
+import TheNavBar from '@/components/header/TheHeader.vue'
+import ShoppingCart from '@/components/common/ShoppingCart.vue'
 export default {
   mixins: [asyncDataStatus],
   data () {

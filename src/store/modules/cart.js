@@ -64,7 +64,7 @@ export default {
     // eslint-disable-next-line camelcase
     async updateCartItemQuantity ({ state, commit, rootState }, { item_id, quantity }) {
       // eslint-disable-next-line
-      let response = await axios.put(`${rootState.endpointAddress}/shoppingCart/update/${item_id}`, { item_id, quantity })
+      let response = await axios.put(`${rootState.endpointAddress}/shoppingcart/update/${item_id}`, { item_id, quantity })
       response.data.forEach(item => {
         item.image = state.shoppingCartItemsImages.find(image => item.item_id === image.itemId).itemImage
       })
@@ -72,8 +72,15 @@ export default {
     },
 
     async removeShoppingCartItem ({ state, commit, rootState }, cartItemId) {
-      await axios.delete(`${rootState.endpointAddress}/shoppingCart/removeProduct/${cartItemId}`)
+      await axios.delete(`${rootState.endpointAddress}/shoppingcart/removeProduct/${cartItemId}`)
       commit('deleteShoppingCartItem', cartItemId)
+    },
+
+    async emptyShoppingCart ({ commit, rootState }, cartId) {
+      commit('setLoadingState', true)
+      const response = await axios.delete(`${rootState.endpointAddress}/shoppingcart/empty/${cartId}`)
+      commit('setShoppingCartItems', response.data)
+      commit('setLoadingState', false)
     }
   }
 }

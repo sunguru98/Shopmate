@@ -1,7 +1,7 @@
 <template>
   <div v-if="asyncDataStatus_ready">
     <main class="all-products" style="opacity: 1">
-      <FiltersArea :count="products.count" @normalMode='productsDisplayMode="all"' @departmentMode="productsDisplayMode='department';displayId=$event; currentPageNumber=0"
+      <FiltersArea :count="products.count" @normalMode='productsDisplayMode="all"; currentPageNumber=0' @departmentMode="productsDisplayMode='department';displayId=$event; currentPageNumber=0"
       @categoryMode="productsDisplayMode='category'; displayId=$event; currentPageNumber=0"/>
       <section class="products-area">
         <ProductCarousel :currentPageNumber="currentPageNumber" 

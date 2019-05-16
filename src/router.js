@@ -8,7 +8,7 @@ import Delivery from '@/pages/PageDelivery.vue'
 import Confirmation from '@/pages/PageConfirmation.vue'
 import Payment from '@/pages/PagePayment.vue'
 import Finish from '@/pages/PageFinal.vue'
-import Logout from '@/components/LogoutComponent.vue'
+import Logout from '@/components/auth/LogoutComponent.vue'
 import Profile from '@/pages/PageProfile.vue'
 
 Vue.use(Router)
