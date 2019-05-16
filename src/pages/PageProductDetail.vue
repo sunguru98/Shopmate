@@ -155,7 +155,7 @@
 </template>
 
 <script>
-import Spinner from '@/components/AppLoadingComponent'
+import Spinner from '@/components/common/AppLoadingComponent'
 import cartObject from "@/mixins/cartObject";
 import moment from "moment";
 import { mapGetters, mapState } from "vuex";

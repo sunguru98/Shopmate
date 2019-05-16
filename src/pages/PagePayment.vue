@@ -21,10 +21,10 @@
 </template>
 
 <script>
-import Spinner from '@/components/AppLoadingComponent'
-import Stripe from '@/components/StripeComponent'
+import Spinner from '@/components/common/AppLoadingComponent'
+import Stripe from '@/components/common/StripeComponent'
+import CheckOutProgress from '@/components/common/CheckOutProgress'
 import asyncDataStatus from '@/mixins/asyncDataStatus'
-import CheckOutProgress from '@/components/CheckOutProgress'
 import {mapState} from 'vuex'
 export default {
   mixins: [asyncDataStatus],

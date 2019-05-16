@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import FacebookLoginButton from '@/components/FacebookLoginButton.vue'
+import FacebookLoginButton from '@/components/auth/FacebookLoginButton.vue'
 export default {
   components: {
     FacebookLoginButton

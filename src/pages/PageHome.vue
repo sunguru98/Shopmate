@@ -20,11 +20,11 @@
 <script>
 // @ is an alias to /src
 import {mapGetters} from 'vuex'
-import Spinner from '@/components/AppLoadingComponent.vue'
+import Spinner from '@/components/common/AppLoadingComponent.vue'
 import asyncDataStatus from '@/mixins/asyncDataStatus'
-import FiltersArea from '@/components/FiltersAreaComponent.vue'
-import ProductList from '@/components/ProductList.vue'
-import ProductCarousel from '@/components/ProductCarousel.vue'
+import FiltersArea from '@/components/home/FiltersAreaComponent.vue'
+import ProductList from '@/components/home/ProductList.vue'
+import ProductCarousel from '@/components/home/ProductCarousel.vue'
 export default {
   mixins: [asyncDataStatus],
   data () {

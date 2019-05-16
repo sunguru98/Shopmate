@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import Signin from '@/components/SigninComponent.vue'
-import Register from '@/components/RegisterComponent.vue'
+import Signin from '@/components/auth/SigninComponent.vue'
+import Register from '@/components/auth/RegisterComponent.vue'
 export default {
   components: {
     Signin,

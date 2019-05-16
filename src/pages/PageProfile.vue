@@ -8,9 +8,9 @@
 
 <script>
 import asyncDataStatus from '@/mixins/asyncDataStatus'
-import Spinner from '@/components/AppLoadingComponent.vue'
-import ProfileCredentials from '@/components/ProfileCredentials.vue'
-import ProfileAddress from '@/components/ProfileAddress.vue'
+import Spinner from '@/components/common/AppLoadingComponent.vue'
+import ProfileCredentials from '@/components/profile/ProfileCredentials.vue'
+import ProfileAddress from '@/components/profile/ProfileAddress.vue'
 import {mapGetters} from 'vuex'
 export default {
   mixins: [asyncDataStatus],

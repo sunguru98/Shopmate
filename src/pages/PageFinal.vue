@@ -24,7 +24,7 @@
 <script>
 import Spinner from '@/components/AppLoadingComponent'
 import asyncDataStatus from '@/mixins/asyncDataStatus'
-import CheckOutProgress from '@/components/CheckOutProgress'
+import CheckOutProgress from '@/components/common/CheckOutProgress'
 import {mapState} from 'vuex'
 export default {
   mixins: [asyncDataStatus],

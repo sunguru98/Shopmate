@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import CategoriesNavBar from '@/components/CategoriesNavBar.vue'
-import GeneralNavBar from '@/components/GeneralNavBar.vue'
+import CategoriesNavBar from '@/components/header/CategoriesNavBar.vue'
+import GeneralNavBar from '@/components/header/GeneralNavBar.vue'
 export default {
   props: ['departments'],
   components: {

@@ -58,7 +58,7 @@
 
 <script>
 import asyncDataStatus from '@/mixins/asyncDataStatus'
-import CheckOutProgress from '@/components/CheckOutProgress.vue'
+import CheckOutProgress from '@/components/common/CheckOutProgress.vue'
 import {mapState, mapGetters} from 'vuex'
 export default {
   mixins: [asyncDataStatus],
