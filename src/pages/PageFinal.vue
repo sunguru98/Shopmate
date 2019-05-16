@@ -37,13 +37,11 @@ export default {
     }
   },
   created () {
-    this.$store.commit('setLoadingState', true)
-    this.$store.dispatch('clearData')
-    if (this.stripeResponse) {
-      console.log('Stripe Response', this.stripeResponse)
-      this.$store.commit('setLoadingState', false)
-      this.asyncDataStatusFetch()
-    }
+    this.$store.dispatch('receiveChargeFromServer')
+      .then((response) => {
+        this.$store.dispatch('clearData')
+        this.asyncDataStatusFetch()
+      })
   },
   methods: {
     backToHome () {

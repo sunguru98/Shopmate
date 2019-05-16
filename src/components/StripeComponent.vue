@@ -43,6 +43,7 @@ export default {
     this.cardObj = card
     // Add an instance of the card Element into the `card-element` <div>.
     card.mount('#card-element')
+    card.focus()
     card.addEventListener('change', ({error}) => {
       const displayError = document.getElementById('card-errors')
       if (error) {

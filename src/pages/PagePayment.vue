@@ -12,7 +12,7 @@
           <img src="@/assets/img/mastercard.svg" alt="Mastercard image" class="card__images--mastercard">
         </div>
         <div class="card__amount">
-          <label for="card">Pay ${{totalAmount}} with credit card</label>
+          <label for="card">Pay ${{totalAmount}} with credit or debit card</label>
         </div>
       </div>
     </div>

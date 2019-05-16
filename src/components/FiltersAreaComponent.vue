@@ -59,13 +59,13 @@ export default {
     selectCurrentDepartment (depObj) {
       this.selectedCategory = {}
       this.selectedDepartment = depObj;
-      this.$store.dispatch('fetchProductsByDepartment', this.selectedDepartment.department_id)
+      this.$store.dispatch('fetchProductsByDepartment', { id: this.selectedDepartment.department_id, pageNumber: 1 })
       this.$emit('departmentMode', this.selectedDepartment.department_id)
     },
     selectCurrentCategory (catObj) {
       this.selectedDepartment = {}
       this.selectedCategory = catObj;
-      this.$store.dispatch('fetchProductsByCategory', this.selectedCategory.category_id)
+      this.$store.dispatch('fetchProductsByCategory', { id: this.selectedCategory.category_id, pageNumber: 1 })
       this.$emit('categoryMode', this.selectedCategory.category_id)
     }
   },

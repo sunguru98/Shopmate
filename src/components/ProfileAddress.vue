@@ -50,11 +50,15 @@ export default {
     currentShippingRegion () {
       return this.shippingRegions.find(shippingRegion => shippingRegion.shipping_region_id === this.userAddressObj.regionId).shipping_region
     },
-    ...mapState(['userDetails'])
+    userDetails () {
+      return this.$store.getters.getUserDetails
+    }
   },
   methods: {
     updateUserAddress () {
-      if(typeof(parseInt(this.userAddressObj.postalCode) === Number)){
+      this.userAddressObj.postalCode = parseInt(this.userAddressObj.postalCode)
+      console.log(typeof this.userAddressObj.postalCode, this.userAddressObj.postalCode)
+      if (!isNaN(this.userAddressObj.postalCode)) {
         this.$store.dispatch('updateUserAddress', {
           address_1: this.userAddressObj.address_1,
           city: this.userAddressObj.city,
@@ -63,7 +67,7 @@ export default {
           country: this.userAddressObj.country,
           shipping_region_id: this.userAddressObj.regionId
         })
-        .then((response) => {})
+        .then((response) => this.errorMessage = null)
         .catch(err => this.errorMessage = err.response.data.error.message)
       } else {
         this.errorMessage = 'Please enter a valid postal code'

@@ -35,7 +35,7 @@ export default {
       this.errorMessage = null
       if(this.password == this.cpassword){
         this.$store.dispatch('registerUser', { name: this.name, email: this.email, password: this.password })
-          .then(response => this.$router.push({name: 'Home'}))
+          .then(response => this.$router.push({name: 'Profile'}))
           .catch(err => this.errorMessage = err.response.data.error.message)
       } else {
         this.errorMessage = 'Passwords do not match. Please try again'

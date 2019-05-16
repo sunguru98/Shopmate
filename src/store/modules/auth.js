@@ -10,7 +10,7 @@ export default {
   getters: {
     getUserDetails: state => state.userDetails,
     isLoggedIn: state => state.accessToken !== null,
-    hasAddress: state => state.userDetails.address_1 !== null || state.userDetails.city !== null || state.userDetails.country !== null,
+    hasAddress: state => state.userDetails.address_1 !== null && state.userDetails.city !== null && state.userDetails.country !== null,
     fetchFirstName: state => {
       if (Object.keys(state.userDetails).length > 0) {
         return state.userDetails.name.split(' ').length > 0 ? state.userDetails.name.split(' ')[0] : state.userDetails.name
@@ -41,9 +41,10 @@ export default {
       let response = await axios.post(`${rootState.endpointAddress}/customers/login`, { email, password })
       VueCookies.set('accessToken', response.data.accessToken, response.data.expires_in)
       if (!rootState.cart.cartId) {
-        dispatch('fetchCartId')
+        await dispatch('fetchCartId')
       }
       localStorage.setItem('cartId', rootState.cart.cartId)
+      console.log('Local storage set cart id', localStorage.getItem('cartId'))
       commit('setAccessToken', response.data.accessToken)
       await dispatch('fetchUserDetails')
     },
@@ -63,9 +64,14 @@ export default {
       console.log('User Details', state.userDetails)
     },
 
-    async registerUser ({ state, commit, rootState }, { name, email, password }) {
+    async registerUser ({ commit, dispatch, rootState }, { name, email, password }) {
       const response = await axios.post(`${rootState.endpointAddress}/customers`, { name, email, password })
-      console.log(response.data)
+      console.log('User registered', response.data.customer)
+      if (!rootState.cart.cartId) {
+        await dispatch('fetchCartId')
+      }
+      localStorage.setItem('cartId', rootState.cart.cartId)
+      console.log('Local storage set cart id', localStorage.getItem('cartId'))
       VueCookies.set('accessToken', response.data.accessToken, response.data.expires_in)
       commit('setAccessToken', response.data.accessToken)
       commit('setUserDetails', { ...response.data.customer })
@@ -93,7 +99,7 @@ export default {
         url: `${rootState.endpointAddress}/customers/address`
       })
       console.log(response)
-      commit('setUserDetails', { ...response.data.customer })
+      commit('setUserDetails', { ...response.data })
       commit('setLoadingState', false)
     }
   }

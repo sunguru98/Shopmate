@@ -1,8 +1,8 @@
 <template>
   <div v-if="asyncDataStatus_ready">
     <main class="all-products" style="opacity: 1">
-      <FiltersArea :count="products.count" @normalMode='productsDisplayMode="all"' @departmentMode="productsDisplayMode='department';displayId=$event"
-      @categoryMode="productsDisplayMode='category'; displayId=$event"/>
+      <FiltersArea :count="products.count" @normalMode='productsDisplayMode="all"' @departmentMode="productsDisplayMode='department';displayId=$event; currentPageNumber=0"
+      @categoryMode="productsDisplayMode='category'; displayId=$event; currentPageNumber=0"/>
       <section class="products-area">
         <ProductCarousel :currentPageNumber="currentPageNumber" 
         :totalPages="totalPages"
@@ -67,7 +67,7 @@ export default {
       if (this.productsDisplayMode === "all") {
         this.$store.dispatch('fetchProducts', this.currentPageNumber+1)
       } else if (this.productsDisplayMode === "department") {
-        this.$store.dispatch('fetchProductsByDepartment', { prop: 'one', propTwo: 'two' })
+        this.$store.dispatch('fetchProductsByDepartment', { id: this.displayId, pageNumber: this.currentPageNumber+1 })
       } else if (this.productsDisplayMode === "category") {
         this.$store.dispatch('fetchProductsByCategory', { id: this.displayId, pageNumber: this.currentPageNumber+1 })
       }

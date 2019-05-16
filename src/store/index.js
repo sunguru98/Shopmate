@@ -2,7 +2,7 @@
 /* eslint-disable no-undef */
 import Vue from 'vue'
 import Vuex from 'vuex'
-
+import VueCookies from 'vue-cookies'
 // All modules
 import auth from './modules/auth'
 import cart from './modules/cart'
@@ -14,6 +14,8 @@ import reviews from './modules/reviews'
 import shipping from './modules/shipping'
 
 Vue.use(Vuex)
+Vue.use(VueCookies)
+
 export default new Vuex.Store({
   modules: { auth, cart, categories, departments, payment, products, reviews, shipping },
   state: {
@@ -26,6 +28,8 @@ export default new Vuex.Store({
   },
   actions: {
     clearData ({ commit }) {
+      console.log('Clearing all data')
+      sessionStorage.removeItem('stripeTokenId')
       sessionStorage.removeItem('amountToBePaid')
       commit('setAmountAfterShipping', null)
       sessionStorage.removeItem('shippingCostId')

@@ -56,21 +56,22 @@ export default {
         })
     },
 
-    async fetchProductsByDepartment ({ commit, state, dispatch, rootState }, object) {
-      console.log(object)
-      // commit('setLoadingState', true, { root: true })
-      // const response = await axios.get(`${rootState.endpointAddress}/products/inDepartment/${obj.id}?limit=15?page=${obj.pageNumber}`)
-      // await dispatch('getAttributesForProducts', response)
-      //   .then(allProducts => {
-      //     commit('setProducts', allProducts)
-      //     commit('setLoadingState', false, { root: true })
-      //   })
+    async fetchProductsByDepartment ({ commit, state, dispatch, rootState }, { id, pageNumber }) {
+      console.log(id, pageNumber)
+      commit('setLoadingState', true, { root: true })
+      const response = await axios.get(`${rootState.endpointAddress}/products/inDepartment/${id}?page=${pageNumber}&limit=15`)
+      console.log(response.data)
+      await dispatch('getAttributesForProducts', response)
+        .then(allProducts => {
+          commit('setProducts', allProducts)
+          commit('setLoadingState', false, { root: true })
+        })
     },
 
     async fetchProductsByCategory ({ commit, state, dispatch, rootState }, { id, pageNumber }) {
       console.log(id, pageNumber)
       commit('setLoadingState', true, { root: true })
-      const response = await axios.get(`${rootState.endpointAddress}/products/inCategory/${id}?limit=15?page=${pageNumber}`)
+      const response = await axios.get(`${rootState.endpointAddress}/products/inCategory/${id}?page=${pageNumber}&limit=15`)
       await dispatch('getAttributesForProducts', response)
         .then(allProducts => {
           commit('setProducts', allProducts)

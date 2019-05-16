@@ -28,7 +28,9 @@
 import {mapState} from 'vuex'
 export default {
   computed: {
-    ...mapState(['userDetails'])
+    userDetails () {
+      return this.$store.getters.getUserDetails
+    }
   },
   data () {
     return {

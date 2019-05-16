@@ -3,6 +3,7 @@ import VueCookies from 'vue-cookies'
 export default {
   state: {
     orderId: parseInt(VueCookies.get('orderId')) || null,
+    stripeTokenId: sessionStorage.getItem('stripeTokenId') || null,
     amountAfterShipping: sessionStorage.getItem('amountToBePaid') || null,
     stripeResponse: null
   },
@@ -15,21 +16,15 @@ export default {
       context.commit('setOrderId', null)
     },
 
-    async fetchStripeToken ({ commit, state, dispatch }, { cardObj, stripeInstance }) {
+    async fetchStripeToken ({ commit }, { cardObj, stripeInstance }) {
       const { token, error } = await stripeInstance.createToken(cardObj)
       if (error) {
         // Inform the customer that there was an error.
         const errorElement = document.getElementById('card-errors')
         errorElement.textContent = error.message
       } else {
-        let date = Date.now()
-        let chargeObj = {
-          stripeToken: token.id,
-          order_id: state.orderId,
-          descripton: `Purchased items at ${date} for ${state.amountAfterShipping}`,
-          amount: parseInt(state.amountAfterShipping.replace('.', ''))
-        }
-        dispatch('recieveChargeFromServer', { ...chargeObj })
+        sessionStorage.setItem('stripeTokenId', token.id)
+        commit('setStripeTokenId', token.id)
       }
     },
 
@@ -45,17 +40,28 @@ export default {
       commit('setOrderId', response.data.orderId)
     },
 
-    async recieveChargeFromServer ({ state, commit, rootState }, chargeObj) {
+    async receiveChargeFromServer ({ state, commit, rootState }) {
       console.log('Entered')
       commit('setLoadingState', true)
+      let date = Date.now()
+      let chargeObj = {
+        stripeToken: state.stripeTokenId,
+        order_id: state.orderId,
+        descripton: `Purchased items at ${date} for ${state.amountAfterShipping}`,
+        amount: parseInt(state.amountAfterShipping.replace('.', ''))
+      }
       const response = await axios.post(`${rootState.endpointAddress}/stripe/charge`, chargeObj)
       commit('setStripeResponse', { ...response.data })
       commit('setLoadingState', false)
+      console.log('Stripe Response', state.stripeResponse)
     }
   },
   mutations: {
     setStripeResponse (state, stripeObj) {
       state.stripeResponse = stripeObj
+    },
+    setStripeTokenId (state, tokenId) {
+      state.stripeTokenId = tokenId
     },
     setAmountAfterShipping (state, amount) {
       state.amountAfterShipping = amount

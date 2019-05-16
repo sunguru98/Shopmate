@@ -31,7 +31,7 @@
       </div>
       <form class="delivery-info-container--deliveryform">
         <div class="deliveryoption" :key="shippingCost.shipping_id" v-for="shippingCost in shippingCosts">
-          <input :value="shippingCost.shipping_id" v-model="userDetailsObj.deliveryId" type="radio" name="delivery" :id="'opt'+shippingCost.shipping_id" required>
+          <input style="cursor: pointer" :value="shippingCost.shipping_id" v-model="userDetailsObj.deliveryId" type="radio" name="delivery" :id="'opt'+shippingCost.shipping_id" required>
           <label :for="'opt'+shippingCost.shipping_id">
             <h3>{{shippingCost.shipping_type.split(' (')[0]}}: <span>({{shippingCost.shipping_type.split(' (')[1]}}</span></h3>
           </label>
@@ -79,13 +79,15 @@ export default {
   created () {
     this.$store.dispatch('fetchShippingCosts')
     .then(() => {
-      this.userDetailsObj.fName = this.userDetails.name.split(' ').length > 0 ? this.userDetails.name.split(' ')[0] : this.userDetails.name
-      this.userDetailsObj.lName = this.userDetails.name.split(' ').length > 0 ? this.userDetails.name.split(' ')[1] : ''
-      this.userDetailsObj.address = this.userDetails.address_1,
-      this.userDetailsObj.city = this.userDetails.city,
-      this.userDetailsObj.country = this.userDetails.country,
-      this.userDetailsObj.postalCode = this.userDetails.postal_code
-      this.asyncDataStatusFetch()
+      if (this.userDetails) {
+        this.userDetailsObj.fName = this.userDetails.name.split(' ').length > 0 ? this.userDetails.name.split(' ')[0] : this.userDetails.name
+        this.userDetailsObj.lName = this.userDetails.name.split(' ').length > 0 ? this.userDetails.name.split(' ')[1] : ''
+        this.userDetailsObj.address = this.userDetails.address_1,
+        this.userDetailsObj.city = this.userDetails.city,
+        this.userDetailsObj.country = this.userDetails.country,
+        this.userDetailsObj.postalCode = this.userDetails.postal_code
+        this.asyncDataStatusFetch()
+      }
     })
   },
   methods: {

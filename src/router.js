@@ -109,12 +109,14 @@ const router = new Router({
       meta: {
         title: 'Shopmate - Finish',
         requiresAuth: true,
+        requiresTokenId: true,
         requiresStripeResponse: true
       }
     }
   ]
 })
 router.beforeEach((to, from, next) => {
+  console.log(from, to)
   document.title = to.meta.title
   // Login related guards
   if (to.matched.some(route => route.meta.requiresAuth)) {
@@ -127,12 +129,36 @@ router.beforeEach((to, from, next) => {
       } else {
         next()
       }
+      // The payment page must only show if the order id is generated
+      if (to.matched.some(route => route.meta.requiresOrderId)) {
+        console.log('Entering Payment guard')
+        if (!store.state.payment.orderId) {
+          console.log('No order Id')
+          next({ name: 'Home' })
+        } else {
+          next()
+        }
+      } else {
+        next()
+      }
       // If the user doesnt fill out the details then reminding him to update the address
       if (to.matched.some(route => route.meta.requiresUserDetails)) {
         console.log('Has Address', store.getters.hasAddress)
         if (!store.getters.hasAddress) {
           console.log('User details are not filled')
           next({ name: 'Profile' })
+        } else {
+          next()
+        }
+      } else {
+        next()
+      }
+      // The final page must only show if the stripe token is present
+      if (to.matched.some(route => route.meta.requiresTokenId)) {
+        console.log('Entering stripe route guard', to.matched.some(route => route.meta.requiresTokenId))
+        if (!store.state.payment.stripeTokenId) {
+          console.log('No stripe token Id')
+          next({ name: 'Home' })
         } else {
           next()
         }
