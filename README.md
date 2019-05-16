@@ -2,7 +2,7 @@
 
 ## By Sundeep Charan Ramkumar
 
-### [Shopmate - Website](https://shopmate-app.netlify.com)
+### [Shopmate - Website](https://shopmateapp.netlify.com)
 
 ---
 
