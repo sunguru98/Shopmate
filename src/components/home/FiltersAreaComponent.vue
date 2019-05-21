@@ -58,6 +58,7 @@ export default {
   methods: {
     selectCurrentDepartment (depObj) {
       this.selectedCategory = {}
+      Event.$emit('selectedDep', depObj.name)
       this.selectedDepartment = depObj;
       this.$store.dispatch('fetchProductsByDepartment', { id: this.selectedDepartment.department_id, pageNumber: 1 })
       this.$emit('departmentMode', this.selectedDepartment.department_id)
@@ -65,6 +66,7 @@ export default {
     selectCurrentCategory (catObj) {
       this.selectedDepartment = {}
       this.selectedCategory = catObj;
+      Event.$emit('filterClosed')
       this.$store.dispatch('fetchProductsByCategory', { id: this.selectedCategory.category_id, pageNumber: 1 })
       this.$emit('categoryMode', this.selectedCategory.category_id)
     },

@@ -56,6 +56,10 @@ export default {
     Event.$on('filterClosed', () => {
       this.currentDepartment = ''
     })
+
+    Event.$on('selectedDep', name => {
+      this.currentDepartment = name
+    })
   }
 }
 </script>
