@@ -85,6 +85,7 @@ export default {
       this.selectedCategory = {}
     })
     Event.$on('depSelected', depObj =>{
+      this.selectedCategory = {}
       this.selectedDepartment = depObj
       this.$store.dispatch('fetchProductsByDepartment', { id: this.selectedDepartment.department_id, pageNumber: 1 })
       this.$emit('departmentMode', this.selectedDepartment.department_id)
