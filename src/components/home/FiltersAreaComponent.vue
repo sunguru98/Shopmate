@@ -3,14 +3,14 @@
     <div class="filters-area__infos">
       <h3 class="filters-area__main-title">Filter {{count}} {{count > 1 ? 'items' : 'item'}}</h3>
       <span class="filters-area__department" v-if="Object.keys(selectedDepartment).length > 0">
-        <a @click="$store.dispatch('fetchProducts'); $emit('normalMode'); selectedDepartment={}" class="close" style="margin-right: 3px">
+        <a @click="closeFilter('department')" class="close" style="margin-right: 3px">
           <img src="@/assets/img/closeblack.svg" alt="Close icon">
         </a>&nbsp;Department:
         <span class="primary-color">{{selectedDepartment.name}}</span>
       </span>
       <br v-if="Object.keys(selectedDepartment).length > 0">
       <span class="filters-area__category" v-if="Object.keys(selectedCategory).length > 0">
-        <a @click="$store.dispatch('fetchProducts'); selectedCategory={}" class="close" style="margin-right: 3px">
+        <a @click="closeFilter('category')" class="close" style="margin-right: 3px">
           <img src="@/assets/img/closeblack.svg" alt="Close icon">
         </a>&nbsp;Category:
         <span class="primary-color">{{selectedCategory.name}}</span>
@@ -67,6 +67,16 @@ export default {
       this.selectedCategory = catObj;
       this.$store.dispatch('fetchProductsByCategory', { id: this.selectedCategory.category_id, pageNumber: 1 })
       this.$emit('categoryMode', this.selectedCategory.category_id)
+    },
+    closeFilter (type) {
+      if (type === 'department') {
+        this.selectedDepartment = {}
+        Event.$emit('filterClosed')
+      } else if (type === 'category') {
+        this.selectedCategory = {}
+      }
+      this.$store.dispatch('fetchProducts'); 
+      this.$emit('normalMode');
     }
   },
   created () {

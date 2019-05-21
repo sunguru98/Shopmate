@@ -60,7 +60,7 @@
     li{
       transition: color .4s;
     }
-    li:hover{
+    li:hover, .selected-department{
       cursor: pointer;
       color: $primary-color;
     }

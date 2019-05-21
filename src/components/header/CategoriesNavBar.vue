@@ -3,7 +3,7 @@
     <div class="container">
       <router-link style="display: flex" :to="{name: 'Home'}"><img src="@/assets/img/logo.svg" alt="" class="categories__navbar-logo"></router-link>
       <ul class="categories__navbar-categories white-color">
-        <li @click="departmentSelected(department)" :key="department.department_id" v-for="department in departments"><a>{{department.name}}</a></li>
+        <li :class="{'selected-department': currentDepartment == department.name}" @click="departmentSelected(department)" :key="department.department_id" v-for="department in departments"><a>{{department.name}}</a></li>
       </ul>
       <div action="#" class="categories__navbar-search">
         <a @click.prevent="searchProducts" style="display: flex"><img src="@/assets/img/search.svg" alt="Search Icon" class="search"></a>
@@ -23,7 +23,8 @@ export default {
   props: ['departments'],
   data () {
     return {
-      searchQuery: ''
+      searchQuery: '',
+      currentDepartment: ''
     }
   },
   computed: {
@@ -47,8 +48,14 @@ export default {
       this.$store.dispatch('fetchProductsBySearch', this.searchQuery)
     },
     departmentSelected (depObj) {
+      this.currentDepartment = depObj.name
       Event.$emit('depSelected', depObj)
     }
+  },
+  created () {
+    Event.$on('filterClosed', () => {
+      this.currentDepartment = ''
+    })
   }
 }
 </script>
