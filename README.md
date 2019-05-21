@@ -2,7 +2,7 @@
 
 ## By Sundeep Charan Ramkumar
 
-### [Shopmate - Website](https://shopmate-app.netlify.com)
+### [Shopmate - Website](https://shopmateapp.netlify.com)
 
 ---
 
@@ -116,7 +116,6 @@ npm run lint
   * __/ products / {product_id} / reviews__ (with header accessToken)
   * __/ customers__ (with header accessToken)
   * __/ customers / login__ (with header accessToken)
-  * __/customers / facebook__ (with header accessToken)
   * __/ shoppingcart / add__
   * __/ stripe / charge__
 * __PUT__
