@@ -43,6 +43,7 @@ export default {
       if(this.$route.name !== "Home"){
         this.$router.push({name: 'Home'})
       }
+      Event.$emit('normalMode')
       this.$store.dispatch('fetchProductsBySearch', this.searchQuery)
     },
     departmentSelected (depObj) {

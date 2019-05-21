@@ -70,9 +70,14 @@ export default {
     }
   },
   created () {
+    Event.$on('normalMode', () => {
+      this.selectedDepartment = {}
+      this.selectedCategory = {}
+    })
     Event.$on('depSelected', depObj =>{
       this.selectedDepartment = depObj
-      this.$store.dispatch('fetchProductsByDepartment', this.selectedDepartment.department_id) 
+      this.$store.dispatch('fetchProductsByDepartment', { id: this.selectedDepartment.department_id, pageNumber: 1 })
+      this.$emit('departmentMode', this.selectedDepartment.department_id)
     })
   }
 }

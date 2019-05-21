@@ -74,6 +74,9 @@ export default {
     }
   },
   created () {
+    Event.$on('normalMode', () => {
+      this.productsDisplayMode = "all"
+    })
     this.$store.dispatch('fetchProducts')
     .then(() => {
       this.asyncDataStatusFetch()
