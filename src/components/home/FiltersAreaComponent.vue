@@ -44,15 +44,13 @@ export default {
   data () {
     return {
       selectedDepartment: {},
-      selectedCategory: {}
+      selectedCategory: {},
+      categories: null
     } 
   },
   computed: {
     departments () {
       return this.$store.state.departments.departments
-    },
-    categories () {
-      return this.$store.state.categories.categories
     }
   },
   methods: {
@@ -60,11 +58,11 @@ export default {
       this.selectedCategory = {}
       Event.$emit('selectedDep', depObj.name)
       this.selectedDepartment = depObj;
+      this.categories = this.$store.getters.filteredCategories(depObj.department_id)
       this.$store.dispatch('fetchProductsByDepartment', { id: this.selectedDepartment.department_id, pageNumber: 1 })
       this.$emit('departmentMode', this.selectedDepartment.department_id)
     },
     selectCurrentCategory (catObj) {
-      this.selectedDepartment = {}
       this.selectedCategory = catObj;
       Event.$emit('filterClosed')
       this.$store.dispatch('fetchProductsByCategory', { id: this.selectedCategory.category_id, pageNumber: 1 })
@@ -73,15 +71,26 @@ export default {
     closeFilter (type) {
       if (type === 'department') {
         this.selectedDepartment = {}
+        this.selectedCategory = {}
+        this.categories = this.$store.getters.allCategories
         Event.$emit('filterClosed')
+        this.$store.dispatch('fetchProducts'); 
+        this.$emit('normalMode');
       } else if (type === 'category') {
         this.selectedCategory = {}
+        if (Object.keys(this.selectedDepartment).length > 0) {
+          this.$store.dispatch('fetchProductsByDepartment', { id: this.selectedDepartment.department_id, pageNumber: 1 })
+          this.$emit('departmentMode', this.selectedDepartment.department_id);
+        } else {
+          console.log('Working')
+          this.$store.dispatch('fetchProducts'); 
+          this.$emit('normalMode');
+        }
       }
-      this.$store.dispatch('fetchProducts'); 
-      this.$emit('normalMode');
     }
   },
   created () {
+    this.categories = this.$store.getters.allCategories
     Event.$on('normalMode', () => {
       this.selectedDepartment = {}
       this.selectedCategory = {}

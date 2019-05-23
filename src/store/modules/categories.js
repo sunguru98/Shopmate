@@ -4,7 +4,8 @@ export default {
     categories: {}
   },
   getters: {
-    allCategories: state => state.categories
+    allCategories: state => state.categories,
+    filteredCategories: state => id => state.categories.filter(category => category.department_id === id)
   },
   mutations: {
     setCategories (state, categories) {

@@ -4,7 +4,7 @@
         <img :src="product.thumbnail" alt="Shirt image" class="products-area__product-image">
         <h2 class="products-area__product-name">{{product.name}}</h2>
         <h2 class="products-area__product-discountedprice primary-color">${{product.discounted_price == '0.00' ? product.price : product.discounted_price}}</h2>
-        <span v-if="product.discounted_price != '0.00'" class="products-area__product-originalprice">$15.99</span>
+        <span v-if="product.discounted_price != '0.00'" class="products-area__product-originalprice">${{product.price}}</span>
       </div>
       <div class="hovered-view">
         <h3 class="product__title">{{product.name}}</h3>
