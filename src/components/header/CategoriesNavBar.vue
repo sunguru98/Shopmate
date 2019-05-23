@@ -45,6 +45,7 @@ export default {
         this.$router.push({name: 'Home'})
       }
       Event.$emit('normalMode')
+      Event.$emit('filterClosed')
       this.$store.dispatch('fetchProductsBySearch', this.searchQuery)
     },
     departmentSelected (depObj) {
