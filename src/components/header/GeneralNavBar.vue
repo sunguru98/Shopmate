@@ -7,7 +7,7 @@
       <h3 class="general__navbar-greeting" v-if="isLoggedIn">
         Hi {{userName}} ! &nbsp;
         <router-link :to="{name: 'Profile'}" class="primary-color">My Profile</router-link>&nbsp;&nbsp;
-        <router-link :to="{name: 'Logout'}" class="primary-color">Logout</router-link>
+        <a @click.prevent="activateLogout" class="primary-color">Logout</a>
       </h3>
       <div class="general__navbar-sales">
         <ul>
@@ -32,6 +32,14 @@ export default {
   methods: {
     showCart () {
       this.$emit('cartClicked')
+    },
+    activateLogout () {
+      if (this.cartItems.length > 0) {
+        Event.$emit('logoutClicked')
+      } else {
+        this.$store.dispatch('logOut', true)
+          .then(() => this.$router.push({ name: 'Home' }))
+      }
     }
   },
   computed: {

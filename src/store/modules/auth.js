@@ -27,23 +27,21 @@ export default {
     }
   },
   actions: {
-    logOut ({ commit, dispatch }) {
+    logOut ({ commit, dispatch, rootState }, response) {
       VueCookies.remove('accessToken')
       VueCookies.remove('orderId')
-      localStorage.removeItem('cartId')
-      commit('setShoppingCartItems', [])
+      if (!response) {
+        localStorage.removeItem('cartId')
+        dispatch('fetchCartId')
+        dispatch('emptyShoppingCart')
+      }
       commit('setAccessToken', null)
       commit('setUserDetails', {})
-      dispatch('fetchCartId')
     },
 
     async signInUser ({ commit, dispatch, rootState }, { email, password }) {
       let response = await axios.post(`${rootState.endpointAddress}/customers/login`, { email, password })
       VueCookies.set('accessToken', response.data.accessToken, response.data.expires_in)
-      if (!rootState.cart.cartId) {
-        await dispatch('fetchCartId')
-      }
-      localStorage.setItem('cartId', rootState.cart.cartId)
       commit('setAccessToken', response.data.accessToken)
       await dispatch('fetchUserDetails')
     },

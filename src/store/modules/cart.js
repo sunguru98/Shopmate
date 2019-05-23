@@ -1,7 +1,7 @@
 import axios from 'axios'
 export default {
   state: {
-    cartId: localStorage.getItem('cartId'),
+    cartId: localStorage.getItem('cartId') || null,
     shoppingCartItems: [],
     shoppingCartItemsImages: []
   },
@@ -31,6 +31,7 @@ export default {
     async fetchCartId ({ commit, state, rootState }) {
       const response = await axios.get(`${rootState.endpointAddress}/shoppingCart/generateUniqueId`)
       commit('setCartId', response.data.cart_id)
+      localStorage.setItem('cartId', response.data.cart_id)
       return response.data.cart_id
     },
 

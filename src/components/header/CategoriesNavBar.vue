@@ -37,8 +37,10 @@ export default {
       this.$emit('cartClicked')
     },
     clearSearch () {
+      if (this.searchQuery.length > 0) {
+        this.$store.dispatch('fetchProducts')
+      }
       this.searchQuery = ''
-      this.$store.dispatch('fetchProducts')
     },
     searchProducts () {
       if(this.$route.name !== "Home"){

@@ -91,6 +91,7 @@ export default {
   created () {
     this.categories = this.$store.getters.allCategories
     Event.$on('normalMode', () => {
+      this.categories = this.$store.getters.allCategories
       this.selectedDepartment = {}
       this.selectedCategory = {}
     })
