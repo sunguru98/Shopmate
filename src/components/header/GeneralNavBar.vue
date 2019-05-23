@@ -11,9 +11,9 @@
       </h3>
       <div class="general__navbar-sales">
         <ul>
-          <li><router-link :to="{name: 'Signin'}">Daily deals</router-link></li>
-          <li><a href="">Sell</a></li>
-          <li><a href="">Help & Contact</a></li>
+          <li><a style="cursor: default">Daily deals</a></li>
+          <li><a style="cursor: default">Sell</a></li>
+          <li><a style="cursor: default">Help & Contact</a></li>
         </ul>
       </div>
       <div class="general__navbar-cart" @click.prevent="showCart" v-if="!this.$route.path.includes('/checkout')">
