@@ -82,7 +82,6 @@ export default {
           this.$store.dispatch('fetchProductsByDepartment', { id: this.selectedDepartment.department_id, pageNumber: 1 })
           this.$emit('departmentMode', this.selectedDepartment.department_id);
         } else {
-          console.log('Working')
           this.$store.dispatch('fetchProducts'); 
           this.$emit('normalMode');
         }
@@ -98,6 +97,7 @@ export default {
     Event.$on('depSelected', depObj =>{
       this.selectedCategory = {}
       this.selectedDepartment = depObj
+      this.categories = this.$store.getters.filteredCategories(depObj.department_id)
       this.$store.dispatch('fetchProductsByDepartment', { id: this.selectedDepartment.department_id, pageNumber: 1 })
       this.$emit('departmentMode', this.selectedDepartment.department_id)
     })
