@@ -1,4 +1,4 @@
-# Turing Shopmate Front end challenge
+# Shopmate Front end Ecommerce Application
 
 ## By Sundeep Charan Ramkumar
 
